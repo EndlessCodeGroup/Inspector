@@ -9,7 +9,7 @@ plugins {
 }
 
 bukkit {
-    version = "1.16.4"
+    apiVersion = "1.16.4"
 
     meta {
         name.set("Inspector")
