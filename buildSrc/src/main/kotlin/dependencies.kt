@@ -1,6 +1,6 @@
 @file:Suppress("ClassName")
 
-const val sentry = "io.sentry:sentry:1.7.29"
+const val sentry = "io.sentry:sentry:4.0.0-beta.1"
 
 object fuel {
     private const val group = "com.github.kittinunf.fuel"

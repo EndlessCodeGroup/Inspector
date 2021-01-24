@@ -14,7 +14,7 @@ public class InspectorPlugin : JavaPlugin() {
         logger.severe("")
         logger.severe("What to do?")
         logger.severe("  Please report about it to author of the plugin, that requires Inspector.")
-        logger.severe("  He must bundle it to the plugin or you can use Inspector v0.6.0.")
+        logger.severe("  He should bundle it to the plugin.")
         logger.severe("")
 
         throw AuthorNagException("Aggrh!!! Throwing an exception is only one possible way to disable plugin in onLoad()")
