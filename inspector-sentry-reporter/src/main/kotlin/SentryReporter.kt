@@ -1,55 +1,36 @@
 package ru.endlesscode.inspector.report
 
-import io.sentry.DefaultSentryClientFactory
-import io.sentry.DefaultSentryClientFactory.IN_APP_FRAMES_OPTION
-import io.sentry.DefaultSentryClientFactory.UNCAUGHT_HANDLER_ENABLED_OPTION
 import io.sentry.Sentry
-import io.sentry.SentryClientFactory
-import io.sentry.connection.EventSendCallback
-import io.sentry.event.Event
-import io.sentry.event.EventBuilder
-import io.sentry.event.UserBuilder
-import io.sentry.event.interfaces.ExceptionInterface
-import java.util.*
+import io.sentry.SentryEvent
+import io.sentry.protocol.Message
+import io.sentry.protocol.User
 
 /**
  * Reporter that sends reports to Sentry.
  */
 public class SentryReporter private constructor(
     dsn: String,
-    factory: SentryClientFactory,
     override val focus: ReporterFocus,
     private val fields: Set<ReportField>,
 ) : Reporter {
 
     override var enabled: Boolean = true
 
-    private val sentry = Sentry.init(dsn, factory)
-
     private val handlers = CompoundReportHandler()
-    private val pendingExceptions = mutableMapOf<UUID, ExceptionData>()
 
     init {
-        sentry.addEventSendCallback(object : EventSendCallback {
-            override fun onSuccess(event: Event) {
-                val reportedException = removePendingException(event.id)
-                if (reportedException != null) {
-                    handlers.onSuccess(event.message, reportedException)
-                }
-            }
+        Sentry.init { options ->
+            options.dsn = dsn
+            options.release = focus.environment.appVersion
+            options.addInAppInclude(focus.focusedPackage)
+            options.enableUncaughtExceptionHandler = false
+        }
 
-            override fun onFailure(event: Event, exception: Exception) {
-                val isErrorReport = removePendingException(event.id) != null
-                if (isErrorReport) {
-                    handlers.onError(exception)
-                }
+        Sentry.configureScope { scope ->
+            scope.user = User().apply {
+                id = focus.environment.reporterId
             }
-        })
-
-        sentry.release = focus.environment.appVersion
-        sentry.context.user = UserBuilder()
-            .setId(focus.environment.reporterId)
-            .build()
+        }
     }
 
     override fun addHandler(handler: ReportHandler) {
@@ -57,27 +38,22 @@ public class SentryReporter private constructor(
     }
 
     override fun report(message: String, exception: Exception, async: Boolean) {
+        val sentryMessage = Message().apply {
+            formatted = message
+        }
+
+        val event = SentryEvent(exception).apply {
+            setMessage(sentryMessage)
+            fields.asSequence()
+                .filter(ReportField::show)
+                .forEach { setExtra(it.name, it.value) }
+        }
+        Sentry.captureEvent(event)
+
+        // We can't track errors on error sending. So we just assume that report was sent successfully.
         val exceptionData = ExceptionData(exception)
-        handlers.beforeReport(message, exceptionData)
-
-        val eventBuilder = EventBuilder()
-            .withMessage(message)
-            .withSentryInterface(ExceptionInterface(exception))
-            .apply {
-                fields.asSequence()
-                    .filter(ReportField::show)
-                    .forEach { withExtra(it.name, it.value) }
-            }
-
-        sentry.sendEvent(eventBuilder)
-        addPendingException(sentry.context.lastEventId, exceptionData)
+        handlers.onSuccess(message, exceptionData)
     }
-
-    private fun addPendingException(id: UUID, exception: ExceptionData) {
-        pendingExceptions[id] = exception
-    }
-
-    private fun removePendingException(id: UUID): ExceptionData? = pendingExceptions.remove(id)
 
     /**
      * Builder that should be used to build [SentryReporter].
@@ -86,41 +62,32 @@ public class SentryReporter private constructor(
      */
     public class Builder : Reporter.Builder() {
 
-        private var clientFactory: SentryClientFactory? = null
         private var dsn: String = ""
-        private var options: Map<String, String> = emptyMap()
 
         /**
-         * Set [SentryClientFactory], that will be used to create SentryClient.
+         * Set Sentry [dsn].
+         * See: [Setting the DSN](https://docs.sentry.io/clients/java/config/#setting-the-dsn)
          */
-        public fun setClientFactory(clientFactory: SentryClientFactory): Builder {
-            this.clientFactory = clientFactory
-            return this
-        }
-
-        /**
-         * Set Sentry [dsn] with one string.
-         * See: https://docs.sentry.io/clients/java/config/#setting-the-dsn
-         */
-        public fun setDataSourceName(dsn: String): Builder {
+        public fun setDsn(dsn: String): Builder {
             this.dsn = dsn
             return this
         }
 
-        /**
-         * Set Sentry [dsn] built from separated parts.
-         * See: https://docs.sentry.io/clients/java/config/#setting-the-dsn
-         */
+        @Deprecated("Use setDsn", ReplaceWith("setDsn(dsn)"))
+        public fun setDataSourceName(dsn: String): Builder {
+            return setDsn(dsn)
+        }
+
         @JvmOverloads
+        @Deprecated("Use setDsn")
         public fun setDataSourceName(
             publicKey: String,
             projectId: String,
             protocol: String = "https",
             host: String = "sentry.io",
             port: String = "",
-            options: Map<String, String> = emptyMap(),
         ): Builder {
-            this.dsn = buildString {
+            val dsn = buildString {
                 append(protocol)
                 append("://")
                 append(publicKey)
@@ -131,9 +98,7 @@ public class SentryReporter private constructor(
                 append(projectId)
             }
 
-            this.options = options
-
-            return this
+            return setDsn(dsn)
         }
 
         /**
@@ -141,21 +106,11 @@ public class SentryReporter private constructor(
          */
         override fun build(): Reporter {
             require(dsn.isNotBlank()) {
-                "You should specify DSN with method `setDataSourceName(...)` and it shouldn't be blank."
+                "You should specify DSN with method `setDsn(...)` and it shouldn't be blank."
             }
 
-            val options = mutableMapOf(
-                IN_APP_FRAMES_OPTION to focus.focusedPackage,
-                UNCAUGHT_HANDLER_ENABLED_OPTION to "false"
-            )
-            options.putAll(this.options)
-
-            val optionsString = options.asSequence()
-                .joinToString(prefix = "?", separator = "&") { (key, value) -> "$key=$value" }
-
             return SentryReporter(
-                dsn = "$dsn$optionsString",
-                factory = clientFactory ?: DefaultSentryClientFactory(),
+                dsn = dsn,
                 focus = focus,
                 fields = fields
             )
