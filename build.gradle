@@ -5,7 +5,7 @@ plugins {
     id("base")
     id("com.github.ben-manes.versions") version "0.27.0"
     id("org.jetbrains.kotlin.jvm") version "1.4.21" apply false
-    id("com.jfrog.bintray") version "1.8.5" apply false
+    id("bintray-credentials")
 }
 
 description = "Catch and report all exceptions"
@@ -13,8 +13,6 @@ description = "Catch and report all exceptions"
 allprojects {
     ext.apiProject = project(":inspector-api")
 }
-
-apply(from: rootProject.file("gradle/bintray.gradle.kts"))
 
 // Common configurations for all subprojects
 subprojects {
