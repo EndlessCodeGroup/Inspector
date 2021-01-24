@@ -25,6 +25,7 @@ public class BukkitEnvironment internal constructor(
 
     public val inspector: Inspector = Inspector(plugin, properties.configName)
 
+    override val appName: String = plugin.description.name
     override val appVersion: String = plugin.description.version
     override val reporterId: String = inspector.serverId.toString()
 

@@ -1,5 +1,6 @@
 package ru.endlesscode.inspector.report
 
+import io.sentry.Integration
 import io.sentry.Sentry
 import io.sentry.SentryEvent
 import io.sentry.protocol.Message
@@ -10,6 +11,7 @@ import io.sentry.protocol.User
  */
 public class SentryReporter private constructor(
     dsn: String,
+    integrations: List<Integration>,
     override val focus: ReporterFocus,
     private val fields: Set<ReportField>,
 ) : Reporter {
@@ -21,9 +23,10 @@ public class SentryReporter private constructor(
     init {
         Sentry.init { options ->
             options.dsn = dsn
-            options.release = focus.environment.appVersion
+            options.release = "${focus.environment.appName}@${focus.environment.appVersion}"
             options.addInAppInclude(focus.focusedPackage)
             options.enableUncaughtExceptionHandler = false
+            integrations.forEach(options::addIntegration)
         }
 
         Sentry.configureScope { scope ->
@@ -63,6 +66,7 @@ public class SentryReporter private constructor(
     public class Builder : Reporter.Builder() {
 
         private var dsn: String = ""
+        private val integrations = mutableListOf<Integration>()
 
         /**
          * Set Sentry [dsn].
@@ -101,6 +105,12 @@ public class SentryReporter private constructor(
             return setDsn(dsn)
         }
 
+        /** Adds given [integration] to Sentry. */
+        public fun addIntegration(integration: Integration): Builder {
+            this.integrations.add(integration)
+            return this
+        }
+
         /**
          * Build configured [SentryReporter].
          */
@@ -111,6 +121,7 @@ public class SentryReporter private constructor(
 
             return SentryReporter(
                 dsn = dsn,
+                integrations = integrations,
                 focus = focus,
                 fields = fields
             )
