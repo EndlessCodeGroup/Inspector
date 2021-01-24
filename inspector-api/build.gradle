@@ -2,7 +2,3 @@
 plugins {
     id("bintray-publish")
 }
-
-dependencies {
-    applyDeps(apiDeps) { implementation(it) }
-}

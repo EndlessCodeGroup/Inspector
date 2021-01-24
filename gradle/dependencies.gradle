@@ -3,26 +3,13 @@
 // Versions
 def junitVersion = "4.12"
 def mockitoVersion = "2.23.4"
-def coroutinesVersion = "1.3.3"
 def fuelVersion = "2.2.1"
 def sentryVersion = "1.7.29"
 
 // Groups
-def kotlinxGroup = "org.jetbrains.kotlinx"
 def fuelGroup = "com.github.kittinunf.fuel"
 
 ext {
-    // All these dependencies will be used with scope `compileOnly`
-    commonDeps = [
-            // Dependencies used in all subprojects
-            kotlinStdlib    : kotlin("stdlib-jdk8"),
-            coroutines      : dep(kotlinxGroup, "kotlinx-coroutines-core", coroutinesVersion)
-    ]
-
-    apiDeps = [
-            // Dependencies used only in API
-    ]
-
     deps = [
             sentry          : dep("io.sentry", "sentry", sentryVersion),
             fuel            : dep(fuelGroup, "fuel", fuelVersion),
@@ -42,10 +29,6 @@ ext {
 }
 
 // Helping
-
-private static String kotlin(name) {
-    return "org.jetbrains.kotlin:kotlin-$name"
-}
 
 private static String dep(group, module, version) {
     return "$group:$module:$version"

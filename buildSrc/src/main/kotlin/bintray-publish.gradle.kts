@@ -4,7 +4,7 @@ import java.util.*
 apply(plugin = "maven-publish")
 apply(plugin = "com.jfrog.bintray")
 
-configure<JavaPluginExtension> {
+java {
     withSourcesJar()
 }
 
