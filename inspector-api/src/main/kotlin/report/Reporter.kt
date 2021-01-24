@@ -1,25 +1,23 @@
 package ru.endlesscode.inspector.report
 
-import ru.endlesscode.inspector.PublicApi
+public interface Reporter {
 
-interface Reporter {
-
-    val focus: ReporterFocus
+    public val focus: ReporterFocus
 
     /**
      * Enable or disable reporter.
      *
      * @see CachingReporter.report
      */
-    var enabled: Boolean
+    public var enabled: Boolean
 
     /**
      * Alias for [addHandler] method.
      */
-    fun addHandler(
+    public fun addHandler(
         beforeReport: (String, ExceptionData) -> Unit = { _, _ -> },
         onSuccess: (String, ExceptionData) -> Unit = { _, _ -> },
-        onError: (Throwable) -> Unit = { throw it }
+        onError: (Throwable) -> Unit = { throw it },
     ) {
         addHandler(object : ReportHandler {
             override fun beforeReport(message: String, exceptionData: ExceptionData) {
@@ -41,12 +39,12 @@ interface Reporter {
      *
      * @see ReportHandler
      */
-    fun addHandler(handler: ReportHandler)
+    public fun addHandler(handler: ReportHandler)
 
     /**
      * Report about [exception] with the [message] that describes when exception thrown (asynchronously).
      */
-    fun report(message: String, exception: Exception) {
+    public fun report(message: String, exception: Exception) {
         report(message, exception, async = true)
     }
 
@@ -55,7 +53,7 @@ interface Reporter {
      *
      * @param async Asynchronously or not
      */
-    fun report(message: String, exception: Exception, async: Boolean)
+    public fun report(message: String, exception: Exception, async: Boolean)
 
     /**
      * Catch and report all exceptions that will be occurred inside [block].
@@ -63,7 +61,7 @@ interface Reporter {
      * @param message The message that will be used as title
      * @param block Block that should be executed
      */
-    fun track(message: String, block: () -> Unit) {
+    public fun track(message: String, block: () -> Unit) {
         try {
             block.invoke()
         } catch (e: Exception) {
@@ -71,7 +69,7 @@ interface Reporter {
         }
     }
 
-    abstract class Builder {
+    public abstract class Builder {
 
         protected var focus: ReporterFocus = ReporterFocus.NO_FOCUS
 
@@ -96,8 +94,7 @@ interface Reporter {
          *
          * @param focus The focus
          */
-        @PublicApi
-        fun focusOn(focus: ReporterFocus): Builder {
+        public fun focusOn(focus: ReporterFocus): Builder {
             this.focus = focus
             fieldsToSend.addAll(focus.environment.fields.keys)
             return this
@@ -106,8 +103,7 @@ interface Reporter {
         /**
          * Set default fields by names to report.
          */
-        @PublicApi
-        fun setFields(vararg fields: String): Builder {
+        public fun setFields(vararg fields: String): Builder {
             this.fieldsToSend = fields.toMutableSet()
             return this
         }
@@ -115,8 +111,7 @@ interface Reporter {
         /**
          * Add default fields by names to report.
          */
-        @PublicApi
-        fun addFields(vararg fields: String): Builder {
+        public fun addFields(vararg fields: String): Builder {
             this.fieldsToSend.addAll(fields)
             return this
         }
@@ -124,8 +119,7 @@ interface Reporter {
         /**
          * Remove default fields by names from report.
          */
-        @PublicApi
-        fun removeFields(vararg fields: String): Builder {
+        public fun removeFields(vararg fields: String): Builder {
             this.fieldsToSend.removeAll(fields)
             return this
         }
@@ -133,12 +127,11 @@ interface Reporter {
         /**
          * Add custom fields to report.
          */
-        @PublicApi
-        fun addCustomFields(vararg customFields: ReportField): Builder {
+        public fun addCustomFields(vararg customFields: ReportField): Builder {
             this.customFields.addAll(customFields)
             return this
         }
 
-        abstract fun build(): Reporter
+        public abstract fun build(): Reporter
     }
 }

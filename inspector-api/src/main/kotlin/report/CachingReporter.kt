@@ -9,7 +9,7 @@ import ru.endlesscode.inspector.util.similarTo
 /**
  * Reporter that filters if he already reported similar exception.
  */
-abstract class CachingReporter : Reporter {
+public abstract class CachingReporter : Reporter {
 
     private val reportedCauses = mutableListOf<Throwable>()
     private val handlers = CompoundReportHandler()
@@ -52,10 +52,10 @@ abstract class CachingReporter : Reporter {
      * @param onSuccess Will be called on successful report
      * @param onError Will be called on error during report
      */
-    abstract suspend fun report(
+    public abstract suspend fun report(
         title: String,
         exceptionData: ExceptionData,
         onSuccess: (String, ExceptionData) -> Unit,
-        onError: (Throwable) -> Unit
+        onError: (Throwable) -> Unit,
     )
 }

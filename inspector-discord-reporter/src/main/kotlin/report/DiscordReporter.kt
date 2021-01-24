@@ -3,7 +3,6 @@ package ru.endlesscode.inspector.report
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.failure
-import ru.endlesscode.inspector.PublicApi
 import ru.endlesscode.inspector.dsl.markdown
 import ru.endlesscode.inspector.service.HastebinStorage
 import ru.endlesscode.inspector.service.TextStorage
@@ -15,21 +14,21 @@ import ru.endlesscode.inspector.util.stackTraceText
 /**
  * Reporter that uses Discord Webhook to write reports.
  */
-class DiscordReporter private constructor(
+public class DiscordReporter private constructor(
     override val focus: ReporterFocus,
     id: String,
     token: String,
     private val textStorage: TextStorage,
     private val username: String,
     private val avatarUrl: String,
-    private val fields: Set<ReportField>
+    private val fields: Set<ReportField>,
 ) : CachingReporter() {
 
-    companion object {
-        const val DEFAULT_AVATAR_URL =
+    public companion object {
+        private const val DEFAULT_AVATAR_URL =
             "https://gitlab.com/endlesscodegroup/inspector/raw/master/images/inspector_icon_256.png"
 
-        val defaultTextStorage = HastebinStorage()
+        private val defaultTextStorage = HastebinStorage()
     }
 
     private val url = "https://discordapp.com/api/webhooks/$id/$token"
@@ -38,7 +37,7 @@ class DiscordReporter private constructor(
         title: String,
         exceptionData: ExceptionData,
         onSuccess: (String, ExceptionData) -> Unit,
-        onError: (Throwable) -> Unit
+        onError: (Throwable) -> Unit,
     ) {
         val exception = exceptionData.exception
         try {
@@ -124,7 +123,7 @@ class DiscordReporter private constructor(
      * You should specify Webhook data with method [hook].
      * Also here you can configure reporter username ([setUsername]) and avatar ([setAvatar]).
      */
-    class Builder : Reporter.Builder() {
+    public class Builder : Reporter.Builder() {
 
         private val textStorage: TextStorage = defaultTextStorage
         private var id: String = ""
@@ -157,8 +156,7 @@ class DiscordReporter private constructor(
          * @param id Webhook id (it contains only digits).
          * @param token Token for webhook (contains digits and small latin letters).
          */
-        @PublicApi
-        fun hook(id: String, token: String): Builder {
+        public fun hook(id: String, token: String): Builder {
             this.id = id
             this.token = token
             return this
@@ -167,8 +165,7 @@ class DiscordReporter private constructor(
         /**
          * Set [username] that will be used as reporter username in Discord.
          */
-        @PublicApi
-        fun setUsername(username: String): Builder {
+        public fun setUsername(username: String): Builder {
             this.username = username
             return this
         }
@@ -176,8 +173,7 @@ class DiscordReporter private constructor(
         /**
          * Set [avatarUrl] that will be used as reporter avatar in Discord. Starting with protocol and including all slashes.
          */
-        @PublicApi
-        fun setAvatar(avatarUrl: String): Builder {
+        public fun setAvatar(avatarUrl: String): Builder {
             this.avatarUrl = avatarUrl
             return this
         }

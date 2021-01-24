@@ -15,9 +15,9 @@ import org.bukkit.plugin.Plugin
  * SentryClientFactory that handles Bukkit-specific construction, like logging
  * server and plugin information.
  */
-class BukkitPluginSentryClientFactory @JvmOverloads constructor(
+public class BukkitPluginSentryClientFactory @JvmOverloads constructor(
     plugin: Plugin,
-    lookup: Lookup = Lookup.getDefault()
+    lookup: Lookup = Lookup.getDefault(),
 ) : DefaultSentryClientFactory(lookup) {
 
     private val buildHelper = BukkitPluginBuilderHelper(plugin)

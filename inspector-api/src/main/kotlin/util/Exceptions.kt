@@ -3,7 +3,7 @@ package ru.endlesscode.inspector.util
 import java.io.PrintWriter
 import java.io.StringWriter
 
-val Throwable.stackTraceText: String
+public val Throwable.stackTraceText: String
     get() {
         val sw = StringWriter()
         val pw = PrintWriter(sw)
@@ -11,18 +11,18 @@ val Throwable.stackTraceText: String
         return sw.toString()
     }
 
-fun Throwable.getFocusedRootStackTrace(focusedPackage: String): String {
+public fun Throwable.getFocusedRootStackTrace(focusedPackage: String): String {
     return rootCause.getFocusedStackTrace(focusedPackage)
 }
 
-val Throwable.rootCause: Throwable
+public val Throwable.rootCause: Throwable
     get() = this.cause?.rootCause ?: this
 
-fun Throwable.similarTo(other: Throwable): Boolean {
+public fun Throwable.similarTo(other: Throwable): Boolean {
     return stackTrace?.contentEquals(other.stackTrace) == true
 }
 
-fun Throwable.getFocusedStackTrace(focusedPackage: String): String {
+private fun Throwable.getFocusedStackTrace(focusedPackage: String): String {
     return buildString {
         append(this@getFocusedStackTrace.javaClass.name)
         append(": ")

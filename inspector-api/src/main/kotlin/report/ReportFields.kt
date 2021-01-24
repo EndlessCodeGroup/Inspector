@@ -1,21 +1,21 @@
 package ru.endlesscode.inspector.report
 
-interface ReportField {
+public interface ReportField {
 
-    companion object {
+    public companion object {
         private const val HIDDEN_FIELD_VALUE = "<value hidden by user>"
     }
 
-    val name: String
-    val shortValue: String
-    val value: String
-    val show: Boolean
+    public val name: String
+    public val shortValue: String
+    public val value: String
+    public val show: Boolean
 
-    fun render(
+    public fun render(
         short: Boolean = true,
         separator: String = ": ",
         prepareName: (String) -> String = { it },
-        prepareValue: (String) -> String = { it }
+        prepareValue: (String) -> String = { it },
     ): String {
         val selectedValue = if (show) {
             if (short) shortValue else value
@@ -27,10 +27,10 @@ interface ReportField {
     }
 }
 
-open class TextField(
+public open class TextField(
     override val name: String,
     override val shortValue: String,
-    override val value: String = shortValue
+    override val value: String = shortValue,
 ) : ReportField {
 
     private var shouldShow: TextField.() -> Boolean = { true }
@@ -39,16 +39,16 @@ open class TextField(
         get() = shouldShow()
 
     /** Adds predicate to show or hide field. */
-    fun showOnlyIf(predicate: TextField.() -> Boolean): ReportField {
+    public fun showOnlyIf(predicate: TextField.() -> Boolean): ReportField {
         shouldShow = predicate
         return this
     }
 }
 
-open class ListField<T>(
+public open class ListField<T>(
     override val name: String,
     private val produceList: () -> List<T>,
-    private val getSummary: (List<T>) -> String
+    private val getSummary: (List<T>) -> String,
 ) : ReportField {
 
     override val shortValue: String
@@ -66,7 +66,7 @@ open class ListField<T>(
     private var shouldShow: ListField<T>.() -> Boolean = { true }
 
     /** Adds predicate to show or hide field. */
-    fun showOnlyIf(predicate: ListField<T>.() -> Boolean): ListField<T> {
+    public fun showOnlyIf(predicate: ListField<T>.() -> Boolean): ListField<T> {
         shouldShow = predicate
         return this
     }

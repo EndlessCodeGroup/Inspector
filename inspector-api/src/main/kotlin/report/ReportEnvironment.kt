@@ -1,9 +1,9 @@
 package ru.endlesscode.inspector.report
 
-interface ReportEnvironment {
+public interface ReportEnvironment {
 
-    companion object {
-        val EMPTY = object : ReportEnvironment {
+    public companion object {
+        public val EMPTY: ReportEnvironment = object : ReportEnvironment {
             override val appVersion: String = ""
             override val reporterId: String = ""
             override val fields: Map<String, ReportField> = emptyMap()
@@ -14,20 +14,20 @@ interface ReportEnvironment {
     /**
      * Version of app that uses Inspector.
      */
-    val appVersion: String
+    public val appVersion: String
 
     /**
      * Unique identifier of reporter.
      */
-    val reporterId: String
+    public val reporterId: String
 
     /**
      * Environment-related [fields][ReportField]. Stored as relation "name -> field".
      */
-    val fields: Map<String, ReportField>
+    public val fields: Map<String, ReportField>
 
     /**
      * Indicates that inspector enabled.
      */
-    val isInspectorEnabled: Boolean
+    public val isInspectorEnabled: Boolean
 }

@@ -3,7 +3,7 @@ package ru.endlesscode.inspector.report
 /**
  * Report handler. Used for tracking report process.
  */
-interface ReportHandler {
+public interface ReportHandler {
 
     /**
      * Called before report sent.
@@ -11,7 +11,7 @@ interface ReportHandler {
      * @param message Report message
      * @param exceptionData Exception data that will be reported
      */
-    fun beforeReport(message: String, exceptionData: ExceptionData)
+    public fun beforeReport(message: String, exceptionData: ExceptionData)
 
     /**
      * Called on successfully report.
@@ -19,12 +19,12 @@ interface ReportHandler {
      * @param message Report message
      * @param exceptionData Exception data that was reported
      */
-    fun onSuccess(message: String, exceptionData: ExceptionData)
+    public fun onSuccess(message: String, exceptionData: ExceptionData)
 
     /**
      * Called when an exception occurs while attempting to report an error.
      *
-     * @param throwable The exception that occured on report
+     * @param throwable The exception that occurred on report
      */
-    fun onError(throwable: Throwable)
+    public fun onError(throwable: Throwable)
 }

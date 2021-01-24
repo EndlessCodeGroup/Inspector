@@ -2,38 +2,37 @@ package ru.endlesscode.inspector.bukkit
 
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.Plugin
-import ru.endlesscode.inspector.PublicApi
 import ru.endlesscode.inspector.bukkit.report.DataType
 import ru.endlesscode.inspector.bukkit.util.FileUtil
 import ru.endlesscode.inspector.bukkit.util.getBooleanOrPut
 import ru.endlesscode.inspector.bukkit.util.getUuidOrPut
 import java.io.File
-import java.util.UUID
+import java.util.*
 
 /**
  * Class that represents Inspector's configurations.
  */
-class Inspector(private val configFile: File, private val globalConfigFile: File) {
+public class Inspector internal constructor(private val configFile: File, private val globalConfigFile: File) {
 
-    companion object {
+    public companion object {
         /**
          * Version of Inspector.
          */
-        const val version: String = "0.9"
+        public const val version: String = "0.9"
 
         // Preserved value for case if global config not contains server ID yet
         private val newServerId by lazy { UUID.randomUUID() }
     }
 
-    /**
-     * Enabling of Inspector.
-     */
-    var isEnabled: Boolean = true
+    /** Enabling of Inspector. */
+    public var isEnabled: Boolean = true
+        private set
 
     /**
      * Unique ID of server. It can be used to determine what reports sent from the same server.
      */
-    var serverId: UUID
+    public var serverId: UUID
+        private set
 
     private var sendData = mutableMapOf(
         DataType.CORE to true,
@@ -52,16 +51,15 @@ class Inspector(private val configFile: File, private val globalConfigFile: File
         reload()
     }
 
-    constructor(
+    internal constructor(
         plugin: Plugin,
-        configName: String
+        configName: String,
     ) : this(plugin.dataFolder.resolve(configName), plugin.dataFolder.parentFile.resolve("Inspector/config.yml"))
 
     /**
      * Reload config from the disk.
      */
-    @PublicApi
-    fun reload() {
+    public fun reload() {
         globalConfig.load(globalConfigFile)
         config.load(configFile)
 
@@ -75,7 +73,7 @@ class Inspector(private val configFile: File, private val globalConfigFile: File
      * Checks that sending of the data with specified [type][dataType], enabled in config.
      * @return `true` if sending is enabled, otherwise `false`.
      */
-    fun shouldSendData(dataType: DataType): Boolean = sendData.getValue(dataType)
+    public fun shouldSendData(dataType: DataType): Boolean = sendData.getValue(dataType)
 
     private fun readValuesFromConfig() {
         isEnabled = readBoolean("Reporter.enabled")

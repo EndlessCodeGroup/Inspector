@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin
 /**
  * Wrapper for the Inspector to make impossible load it as plugin.
  */
-class InspectorPlugin : JavaPlugin() {
+public class InspectorPlugin : JavaPlugin() {
 
     override fun onLoad() {
         logger.severe("")

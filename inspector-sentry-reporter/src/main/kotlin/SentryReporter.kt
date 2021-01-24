@@ -10,19 +10,16 @@ import io.sentry.event.Event
 import io.sentry.event.EventBuilder
 import io.sentry.event.UserBuilder
 import io.sentry.event.interfaces.ExceptionInterface
-import ru.endlesscode.inspector.PublicApi
-import java.util.UUID
-
+import java.util.*
 
 /**
  * Reporter that sends reports to Sentry.
  */
-@PublicApi
-class SentryReporter private constructor(
+public class SentryReporter private constructor(
     dsn: String,
     factory: SentryClientFactory,
     override val focus: ReporterFocus,
-    private val fields: Set<ReportField>
+    private val fields: Set<ReportField>,
 ) : Reporter {
 
     override var enabled: Boolean = true
@@ -87,8 +84,7 @@ class SentryReporter private constructor(
      *
      * You should specify DSN with one of [setDataSourceName] methods.
      */
-    @PublicApi
-    class Builder : Reporter.Builder() {
+    public class Builder : Reporter.Builder() {
 
         private var clientFactory: SentryClientFactory? = null
         private var dsn: String = ""
@@ -97,8 +93,7 @@ class SentryReporter private constructor(
         /**
          * Set [SentryClientFactory], that will be used to create SentryClient.
          */
-        @PublicApi
-        fun setClientFactory(clientFactory: SentryClientFactory): Builder {
+        public fun setClientFactory(clientFactory: SentryClientFactory): Builder {
             this.clientFactory = clientFactory
             return this
         }
@@ -107,8 +102,7 @@ class SentryReporter private constructor(
          * Set Sentry [dsn] with one string.
          * See: https://docs.sentry.io/clients/java/config/#setting-the-dsn
          */
-        @PublicApi
-        fun setDataSourceName(dsn: String): Builder {
+        public fun setDataSourceName(dsn: String): Builder {
             this.dsn = dsn
             return this
         }
@@ -117,15 +111,14 @@ class SentryReporter private constructor(
          * Set Sentry [dsn] built from separated parts.
          * See: https://docs.sentry.io/clients/java/config/#setting-the-dsn
          */
-        @PublicApi
         @JvmOverloads
-        fun setDataSourceName(
+        public fun setDataSourceName(
             publicKey: String,
             projectId: String,
             protocol: String = "https",
             host: String = "sentry.io",
             port: String = "",
-            options: Map<String, String> = emptyMap()
+            options: Map<String, String> = emptyMap(),
         ): Builder {
             this.dsn = buildString {
                 append(protocol)

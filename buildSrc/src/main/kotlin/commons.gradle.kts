@@ -1,10 +1,15 @@
 import internal.java
+import internal.kotlin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 // Java version
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+kotlin {
+    explicitApi()
 }
 
 repositories {

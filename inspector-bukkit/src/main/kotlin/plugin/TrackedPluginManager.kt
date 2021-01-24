@@ -4,19 +4,14 @@ import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.plugin.*
-import ru.endlesscode.inspector.PublicApi
 import ru.endlesscode.inspector.bukkit.util.EventsUtils
 import ru.endlesscode.inspector.bukkit.util.realPlugin
 import ru.endlesscode.inspector.report.Reporter
 
-
-class TrackedPluginManager(
+public class TrackedPluginManager internal constructor(
     private val delegate: PluginManager,
-    private val reporter: Reporter
+    private val reporter: Reporter,
 ) : PluginManager by delegate {
-
-    @PublicApi
-    constructor(plugin: TrackedPlugin) : this(plugin.server.pluginManager, plugin.reporter)
 
     /**
      * Registers all the events in the given listener class.
@@ -42,7 +37,7 @@ class TrackedPluginManager(
         listener: Listener,
         priority: EventPriority,
         executor: EventExecutor,
-        plugin: Plugin
+        plugin: Plugin,
     ) {
         registerEvent(event, listener, priority, executor, plugin, false)
     }
@@ -53,7 +48,7 @@ class TrackedPluginManager(
         priority: EventPriority,
         executor: EventExecutor,
         plugin: Plugin,
-        ignoreCanceled: Boolean
+        ignoreCanceled: Boolean,
     ) {
         delegate.registerEvent(event, listener, priority, wrapExecutor(executor), plugin.realPlugin, ignoreCanceled)
     }
