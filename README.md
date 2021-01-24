@@ -145,15 +145,14 @@ public class MyTrackedPlugin extends TrackedPlugin {
     
     @Override
     public Reporter createReporter() {
-        String publicKey = "[YOUR_PUBLIC_KEY_HERE]";
-        String projectId = "[YOUR_PROJECT_ID_HERE]";
+        String dsn = "[YOUR_DSN_HERE]";
 
         // Note that you should add needed reporter as dependency first.
         return new SentryReporter.Builder()
-                .setDataSourceName(publicKey, projectId)
+                .setDsn(dsn)
                 // If you want more detailed reports, add this, but you also should
                 // add `sentry-bukkit` dependency before
-                .setClientFactory(new BukkitPluginSentryClientFactory(this))
+                .addIntegration(new SentryBukkitIntegration(this))
                 .focusOn(this) // Reporter will be focused on this plugin
                 .build();
     }
