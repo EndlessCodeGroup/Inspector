@@ -5,7 +5,7 @@ import ru.endlesscode.bukkitgradle.dependencies.spigotApi
 
 plugins {
     id("ru.endlesscode.bukkitgradle") version "0.9.1"
-    `maven-publish`
+    `bintray-publish`
 }
 
 bukkit {
@@ -32,6 +32,3 @@ dependencies {
     compileOnly(spigotApi) { isTransitive = false }
     implementation("org.slf4j:slf4j-jdk14:1.7.30")
 }
-
-// TODO: Port it to Kotlin DSL
-apply(from = "groovy.gradle")

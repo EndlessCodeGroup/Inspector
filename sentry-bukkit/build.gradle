@@ -1,9 +1,9 @@
 plugins {
-    id("maven-publish")
+    id("bintray-publish")
 }
 
 dependencies {
-    compileOnly("org.bukkit:bukkit:1.15.1-R0.1-SNAPSHOT") { transitive = false }
+    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT") { transitive = false }
     api(deps.sentry)
 }
 
@@ -11,24 +11,5 @@ repositories {
     maven {
         name("spigotmc-repo")
         url("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    }
-}
-
-ext.publicationName = "sentryBukkit"
-apply(from: rootProject.file("gradle/publish.gradle"))
-
-publishing {
-    publications {
-        sentryBukkit(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-
-            pom.withXml {
-                def root = asNode()
-                root.appendNode("name", "Sentry Bukkit Integration")
-                root.appendNode("description", "Sentry Client builder for Bukkit")
-                root.children().last() + pomConfig
-            }
-        }
     }
 }
