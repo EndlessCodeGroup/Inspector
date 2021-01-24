@@ -6,7 +6,6 @@ import org.bukkit.command.PluginCommand
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.java.JavaPlugin
-import ru.endlesscode.inspector.PublicApi
 import ru.endlesscode.inspector.bukkit.report.BukkitEnvironment
 import ru.endlesscode.inspector.bukkit.report.BukkitUnwrapReporter
 import ru.endlesscode.inspector.report.ReportEnvironment
@@ -20,7 +19,7 @@ import java.io.Reader
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 import java.util.logging.FileHandler
 import java.util.logging.Formatter
 import java.util.logging.Level
@@ -33,22 +32,21 @@ import java.util.logging.LogRecord
  * @param lifecycleClass The class of a plugin to track.
  */
 @Suppress("LeakingThis")
-abstract class TrackedPlugin @JvmOverloads constructor(
+public abstract class TrackedPlugin @JvmOverloads constructor(
     lifecycleClass: Class<out PluginLifecycle>,
-    envProperties: BukkitEnvironment.Properties = BukkitEnvironment.DEFAULT_PROPERTIES
+    envProperties: BukkitEnvironment.Properties = BukkitEnvironment.DEFAULT_PROPERTIES,
 ) : JavaPlugin(), ReporterFocus {
 
-    companion object {
+    public companion object {
         private const val TAG = "[Inspector]"
     }
 
-    val reporter: Reporter
+    public val reporter: Reporter
 
     override val focusedPackage: String = javaClass.`package`.name
     override val environment: ReportEnvironment = BukkitEnvironment(this, envProperties)
 
-    @PublicApi
-    val lifecycle: PluginLifecycle
+    public val lifecycle: PluginLifecycle
 
     init {
         initLogger()

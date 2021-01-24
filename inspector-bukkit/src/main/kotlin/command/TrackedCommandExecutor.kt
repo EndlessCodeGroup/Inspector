@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender
 import ru.endlesscode.inspector.report.Reporter
 
 
-class TrackedCommandExecutor(
+public class TrackedCommandExecutor internal constructor(
     private val delegate: CommandExecutor,
-    private val reporter: Reporter
+    private val reporter: Reporter,
 ) : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {

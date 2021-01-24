@@ -4,9 +4,9 @@ import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.coroutines.awaitStringResult
 import com.github.kittinunf.fuel.httpPost
 
-class HastebinStorage : TextStorage {
+public class HastebinStorage : TextStorage {
 
-    companion object {
+    public companion object {
         private const val HOST = "https://hastebin.com"
         private const val ERROR_PLACEHOLDER = "<loading to Hastebin failed>"
 

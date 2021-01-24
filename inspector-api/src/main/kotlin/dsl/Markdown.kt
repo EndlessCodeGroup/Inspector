@@ -14,10 +14,10 @@ internal class Line(private val text: String) : Element {
 internal annotation class MarkdownMarker
 
 @MarkdownMarker
-abstract class Group(
+public abstract class Group internal constructor(
     private val indent: String,
     private val firstLine: String?,
-    private val lastLine: String? = firstLine
+    private val lastLine: String? = firstLine,
 ) : Element {
     private val children = arrayListOf<Element>()
 
@@ -35,11 +35,11 @@ abstract class Group(
         lastLine?.let { builder.append("$it\n") }
     }
 
-    operator fun String?.unaryPlus() {
+    public operator fun String?.unaryPlus() {
         children.add(Line(this ?: ""))
     }
 
-    operator fun List<String>?.unaryPlus() {
+    public operator fun List<String>?.unaryPlus() {
         this?.forEach { +it }
     }
 
@@ -50,27 +50,21 @@ abstract class Group(
     }
 }
 
-abstract class TextGroup : Group(indent = "", firstLine = null) {
+public abstract class TextGroup internal constructor() : Group(indent = "", firstLine = null) {
 
-    fun b(text: String): String {
-        return "**$text**"
-    }
+    public fun b(text: String): String = "**$text**"
 
-    fun it(text: String): String {
-        return "*$text*"
-    }
+    public fun it(text: String): String = "*$text*"
 
-    fun hr(): String {
-        return "---"
-    }
+    public fun hr(): String = "---"
 }
 
-class Markdown : TextGroup() {
-    fun code(lang: String = "", init: Code.() -> Unit) = initGroup(Code(lang), init)
+public class Markdown internal constructor() : TextGroup() {
+    public fun code(lang: String = "", init: Code.() -> Unit): Code = initGroup(Code(lang), init)
 }
 
-class Code(lang: String) : Group(indent = "", firstLine = "```$lang", lastLine = "```")
+public class Code internal constructor(lang: String) : Group(indent = "", firstLine = "```$lang", lastLine = "```")
 
-fun markdown(init: Markdown.() -> Unit): Markdown {
+public fun markdown(init: Markdown.() -> Unit): Markdown {
     return Markdown().also(init)
 }

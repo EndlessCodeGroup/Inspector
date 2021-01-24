@@ -3,7 +3,7 @@ package ru.endlesscode.inspector.report
 /**
  * Handler that dispatches events to many handlers.
  */
-class CompoundReportHandler : ReportHandler {
+public class CompoundReportHandler : ReportHandler {
 
     private val handlers = mutableListOf<ReportHandler>()
 
@@ -22,7 +22,7 @@ class CompoundReportHandler : ReportHandler {
     /**
      * Add given [handler] to list of handlers that should receive events.
      */
-    fun addHandler(handler: ReportHandler) {
+    public fun addHandler(handler: ReportHandler) {
         handlers.add(handler)
     }
 }
