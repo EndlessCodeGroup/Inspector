@@ -1,26 +1,3 @@
-def repoUrl = "https://gitlab.com/endlesscodegroup/inspector"
-
-bukkit {
-    version = "1.15.1"
-
-    meta {
-        name = pluginName
-        main = "$group.${project.name}.${pluginName}Plugin"
-        authors = ["OsipXD", "EndlessCodeGroup"]
-        url = repoUrl
-    }
-
-    run {
-        core = "spigot"
-        eula = true
-    }
-}
-
-dependencies {
-    compileOnly(bukkit()) { transitive = false }
-    implementation(deps.slf4j)
-}
-
 ext.publicationName = "bukkit"
 apply(from: rootProject.file("gradle/publish.gradle"))
 
