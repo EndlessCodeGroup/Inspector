@@ -1,36 +1,33 @@
 // Root project build config
 plugins {
-    id("base")
-    id("com.github.ben-manes.versions") version "0.27.0"
-    id("bintray-credentials")
+    `base`
+    `bintray-credentials`
+    id("com.github.ben-manes.versions") version "0.36.0"
 }
 
 description = "Catch and report all exceptions"
 
-allprojects {
-    ext.apiProject = project(":inspector-api")
-}
-
 // Common configurations for all subprojects
 subprojects {
-    apply(plugin: "kotlin")
-    apply(plugin: "commons")
+    apply(plugin = "kotlin")
+    apply(plugin = "commons")
 
     group = "ru.endlesscode.inspector"
     description = rootProject.description
-    archivesBaseName = project.name
-    
+    base.archivesBaseName = name
+
     version = "0.9"
 }
 
 // Configuration for API implementations
-configure(subprojects.findAll { it.name.startsWith(project.name) } - apiProject) {
+val apiProject = project(":inspector-api")
+configure(subprojects.filter { it.name.startsWith(project.name) } - apiProject) {
 
     // Finish configuring API first
     evaluationDependsOn(apiProject.path)
 
     // Use api as dependency
     dependencies {
-        api(apiProject)
+        "api"(apiProject)
     }
 }

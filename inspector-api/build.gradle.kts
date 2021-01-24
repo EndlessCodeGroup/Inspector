@@ -1,4 +1,4 @@
 // API build config
 plugins {
-    id("bintray-publish")
+    `bintray-publish`
 }

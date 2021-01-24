@@ -1,4 +1,5 @@
 import com.jfrog.bintray.gradle.BintrayExtension
+import internal.java
 import java.util.*
 
 apply(plugin = "maven-publish")

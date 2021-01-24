@@ -1,6 +1,5 @@
+import internal.java
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-apply(from = rootProject.file("gradle/dependencies.gradle"))
 
 // Java version
 java {

@@ -1,8 +1,0 @@
-plugins {
-    id("bintray-publish")
-}
-
-dependencies {
-    implementation(deps.fuel)
-    implementation(deps.fuelCoroutines)
-}
