@@ -16,7 +16,7 @@ subprojects {
     description = rootProject.description
     base.archivesBaseName = name
 
-    version = "0.9"
+    version = "0.10.0-SNAPSHOT"
 }
 
 // Configuration for API implementations
