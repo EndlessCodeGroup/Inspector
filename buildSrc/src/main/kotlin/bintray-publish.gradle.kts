@@ -18,8 +18,8 @@ configure<PublishingExtension> {
 }
 
 configure<BintrayExtension> {
-    user = extra["bintrayUser"] as String
-    key = extra["bintrayApiKey"] as String
+    user = (findProperty("bintrayUsername") as? String).orEmpty()
+    key = (findProperty("bintrayPassword") as? String).orEmpty()
     setPublications("maven")
 
     pkg(closureOf<BintrayExtension.PackageConfig> {
