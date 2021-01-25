@@ -90,7 +90,7 @@ shadowJar {
 tasks.assemble.dependsOn tasks.shadowJar
 
 // Here you can change preferred version of inspector
-ext.inspectorVerson = "0.9"
+ext.inspectorVerson = "0.10.0"
 
 // Add Inspector as dependency
 // 'inspector-bukkit' - implementation of Inspector for Bukkit.
@@ -98,7 +98,7 @@ ext.inspectorVerson = "0.9"
 dependencies {
     implementation "ru.endlesscode.inspector:inspector-bukkit:$inspectorVerson"
     implementation "ru.endlesscode.inspector:inspector-sentry-reporter:$inspectorVerson"
-    implementation "ru.endlesscode.inspector:sentry-bukkit:$inspectorVerson" // If you want BukkitPluginSentryClientFactory
+    implementation "ru.endlesscode.inspector:sentry-bukkit:$inspectorVerson" // If you want SentryBukkitIntegration
 }
 ```
 

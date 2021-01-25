@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.10.0]
+
 ### Updated sentry integration
 
 Sentry updated from 1.7.29 to 4.0.0-beta.1. It is impossible to do this upgrade without breaking changes, so way to set
@@ -29,4 +31,6 @@ public Reporter createReporter() {
 - Updated Coroutines and Fuel
 - Build infrastructure updated
 
-[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.9...develop
+[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.0...develop
+
+[0.10.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.9...v0.10.0
