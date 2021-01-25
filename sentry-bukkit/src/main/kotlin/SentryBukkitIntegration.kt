@@ -25,7 +25,7 @@ public class SentryBukkitIntegration(private val plugin: Plugin) : Integration {
         options.sdkVersion?.addIntegration("bukkit")
         options.serverName = plugin.server.knownName
         options.setTag("minecraft", plugin.server.minecraftVersion)
-        options.setBeforeSend { event, _ ->
+        options.addEventProcessor { event, _ ->
             event.contexts.putAll(getContexts())
             event
         }

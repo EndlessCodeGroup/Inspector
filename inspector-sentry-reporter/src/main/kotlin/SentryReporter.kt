@@ -27,6 +27,12 @@ public class SentryReporter private constructor(
             options.addInAppInclude(focus.focusedPackage)
             options.enableUncaughtExceptionHandler = false
             integrations.forEach(options::addIntegration)
+            options.addEventProcessor { event, _ ->
+                fields.asSequence()
+                    .filter(ReportField::show)
+                    .forEach { event.setExtra(it.name, it.value) }
+                event
+            }
         }
 
         Sentry.configureScope { scope ->
@@ -41,20 +47,17 @@ public class SentryReporter private constructor(
     }
 
     override fun report(message: String, exception: Exception, async: Boolean) {
-        val sentryMessage = Message().apply {
-            formatted = message
-        }
+        val exceptionData = ExceptionData(exception)
+        handlers.beforeReport(message, exceptionData)
 
         val event = SentryEvent(exception).apply {
-            setMessage(sentryMessage)
-            fields.asSequence()
-                .filter(ReportField::show)
-                .forEach { setExtra(it.name, it.value) }
+            setMessage(Message().apply {
+                formatted = message
+            })
         }
         Sentry.captureEvent(event)
 
         // We can't track errors on error sending. So we just assume that report was sent successfully.
-        val exceptionData = ExceptionData(exception)
         handlers.onSuccess(message, exceptionData)
     }
 
