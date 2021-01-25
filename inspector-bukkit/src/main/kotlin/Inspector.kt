@@ -18,7 +18,7 @@ public class Inspector internal constructor(private val configFile: File, privat
         /**
          * Version of Inspector.
          */
-        public const val version: String = "0.10.0"
+        public const val version: String = "0.10.1"
 
         // Preserved value for case if global config not contains server ID yet
         private val newServerId by lazy { UUID.randomUUID() }

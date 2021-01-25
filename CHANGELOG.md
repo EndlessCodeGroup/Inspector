@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## [0.10.1]
+
+### Fixed
+
+- Make `PluginLifecycle.getReporter()` public to keep compatibility
+
 ## [0.10.0]
 
 ### Updated sentry integration
@@ -31,6 +37,6 @@ public Reporter createReporter() {
 - Updated Coroutines and Fuel
 - Build infrastructure updated
 
-[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.0...develop
-
+[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.1...develop
+[0.10.1]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.9...v0.10.0
