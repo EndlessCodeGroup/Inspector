@@ -8,6 +8,8 @@ import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.java.JavaPlugin
 import ru.endlesscode.inspector.bukkit.report.BukkitEnvironment
 import ru.endlesscode.inspector.bukkit.report.BukkitUnwrapReporter
+import ru.endlesscode.inspector.bukkit.util.debug
+import ru.endlesscode.inspector.bukkit.util.fixDebugLogs
 import ru.endlesscode.inspector.report.ReportEnvironment
 import ru.endlesscode.inspector.report.ReportedException
 import ru.endlesscode.inspector.report.Reporter
@@ -66,7 +68,7 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
         reporter.enabled = environment.isInspectorEnabled
         reporter.addHandler(
             beforeReport = { message, data ->
-                logger.log(Level.FINE, "$TAG $message", data.exception)
+                logger.debug("$TAG $message", data.exception)
             },
             onSuccess = { message, _ ->
                 logger.warning("$TAG $message")
@@ -74,7 +76,7 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
             },
             onError = {
                 logger.warning("$TAG Error on report: ${it.localizedMessage}")
-                logger.log(Level.FINE, TAG, it)
+                logger.debug(TAG, it)
             }
         )
     }
@@ -84,15 +86,16 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
         val fileHandler = FileHandler("$logsDir/latest.log", true).apply {
             level = Level.ALL
             formatter = object : Formatter() {
-                val timeFormatter = SimpleDateFormat("dd/MM/yy HH:mm:ss")
+                val timeFormatter = SimpleDateFormat("MM/dd HH:mm:ss")
 
                 override fun format(record: LogRecord): String {
-                    val message = "[${timeFormatter.format(Date(record.millis))} ${record.level}]: ${record.message}\n"
+                    val message = "[${timeFormatter.format(Date(record.millis))}][${record.level}]: ${record.message}\n"
                     return record.thrown?.stackTraceText?.let { "$message$it" } ?: message
                 }
             }
         }
         logger.addHandler(fileHandler)
+        logger.fixDebugLogs()
     }
 
     protected abstract fun createReporter(): Reporter
@@ -131,7 +134,7 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
         sender: CommandSender,
         command: Command,
         label: String,
-        args: Array<out String>
+        args: Array<out String>,
     ): Boolean {
         return track("Exception occurred on command '$label' with arguments: ${args.contentToString()}") {
             lifecycle.onCommand(sender, command, label, args)
@@ -142,7 +145,7 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
         sender: CommandSender,
         command: Command,
         alias: String,
-        args: Array<out String>
+        args: Array<out String>,
     ): MutableList<String>? {
         return track {
             lifecycle.onTabComplete(sender, command, alias, args)
