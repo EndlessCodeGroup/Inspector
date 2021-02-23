@@ -5,11 +5,11 @@ import ru.endlesscode.bukkitgradle.dependencies.spigotApi
 
 plugins {
     id("ru.endlesscode.bukkitgradle") version "0.9.1"
-    `bintray-publish`
+    publish
 }
 
 bukkit {
-    apiVersion = "1.16.4"
+    apiVersion = "1.16.5"
 
     meta {
         name.set("Inspector")

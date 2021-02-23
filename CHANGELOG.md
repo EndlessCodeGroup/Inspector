@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Housekeeping
+
+- Migrate from jCenter to Maven Central
+
 ## [0.10.1]
 
 ### Fixed

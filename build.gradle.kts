@@ -1,7 +1,6 @@
 // Root project build config
 plugins {
-    `base`
-    `bintray-credentials`
+    base
     id("com.github.ben-manes.versions") version "0.36.0"
 }
 
@@ -9,7 +8,6 @@ description = "Catch and report all exceptions"
 
 // Common configurations for all subprojects
 subprojects {
-    apply(plugin = "kotlin")
     apply(plugin = "commons")
 
     group = "ru.endlesscode.inspector"

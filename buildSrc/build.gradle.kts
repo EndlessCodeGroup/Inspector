@@ -2,11 +2,15 @@ plugins {
     `kotlin-dsl`
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation(kotlin("gradle-plugin", version = "1.4.21"))
-    implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5")
+    implementation(kotlin("gradle-plugin", version = "1.4.30"))
 }
