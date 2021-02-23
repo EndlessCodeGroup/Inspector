@@ -16,7 +16,7 @@ Also, it sends some sensitive data that can be disabled from sending:
 - List of plugins with versions
 
 > NOTE: Inspector filters all tracked exceptions from console to not bother server owners.
-But all plugin-related logs will be saved to log file in the plugin folder.
+All plugin-related logs will be saved to log file in the plugin folder.
 
 ### Navigation
 - [samples](samples): Samples of usage Inspector
@@ -25,15 +25,15 @@ But all plugin-related logs will be saved to log file in the plugin folder.
 
 ## For server owners
 This is not a plugin and can't be installed with copying to `plugins` directory.
-But you can configure it.
-You can disable sending of information about server core and installed plugins in the `inspector.yml` that stored in directory of the each plugin that uses Inspector.
-Also you can configure it globally in `plugins/Inspector/config.yml`.
+
+You can disable sending of information about server core and installed plugins in the `inspector.yml` that stored in a directory of each plugin that uses Inspector.
+Also, you can configure it globally in `plugins/Inspector/config.yml`.
 
 ### Config example
 ```yaml
 Reporter:
   enabled: true 
-  # Here you can choose what you don't want to send
+  # Here you can choose what you want to send
   data:
     core: true    # Info about server core
     plugins: true # Plugins list
@@ -104,7 +104,7 @@ dependencies {
 
 ### Main plugin class modifications
 
-First of all your current main plugin class should extend `PluginLifecycle` instead of `JavaPlugin`.  
+First, your current main plugin class should extend `PluginLifecycle` instead of `JavaPlugin`.  
 For example, this code:
 ```java
 public class MyPlugin extends JavaPlugin {
@@ -122,19 +122,19 @@ public class MyPlugin extends PluginLifecycle {
 }
 ```
 
-If you doing in constructor any work that requires access to plugin's fields you can receive `UninitializedPropertyAccessException`.
-To avoid it override method init() and do the work within:
+If you're doing anything that requires access to plugin's methods in a constructor, you will get `UninitializedPropertyAccessException`.
+To avoid this problem, override method `init()` and do the work within:
 ```java
 public class MyPlugin extends PluginLifecycle {
     @Override
     public void init() {
-        // do some work
+        // do some work, using plugin's methods
     } 
 }
 ```
 
-When previous action done, you must create the new class extending `TrackedPlugin` that will be used as main plugin class and link it with the lifecycle.
-Also you must override method `createReporter()`. Created reporter will be used for reporting errors.  
+Next, you must create the new class extending `TrackedPlugin` that will be used as main plugin class and link it with the lifecycle.
+Also, you must override method `createReporter()`. The created reporter will be used for reporting errors.  
 Example:
 ```java
 public class MyTrackedPlugin extends TrackedPlugin {
