@@ -37,7 +37,7 @@ shadowJar {
 }
 tasks.assemble.dependsOn tasks.shadowJar
 
-def inspectorVersion = "0.10.1"
+def inspectorVersion = "0.11.0"
 
 dependencies {
     compileOnly(spigotApi()) { transitive = false }
