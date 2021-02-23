@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+### Fallback reporter implementation
+
+Now you can return `null` from `createReporter`.
+In this case will be used `LoggerReporter` as a fallback.
+This reporter simply prints everything to the plugin's logger, just like you not use Inspector.
+
 ### Changed
 
 - Better interoperability with Java

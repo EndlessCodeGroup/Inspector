@@ -10,10 +10,7 @@ import ru.endlesscode.inspector.bukkit.report.BukkitEnvironment
 import ru.endlesscode.inspector.bukkit.report.BukkitUnwrapReporter
 import ru.endlesscode.inspector.bukkit.util.debug
 import ru.endlesscode.inspector.bukkit.util.fixDebugLogs
-import ru.endlesscode.inspector.report.ReportEnvironment
-import ru.endlesscode.inspector.report.ReportedException
-import ru.endlesscode.inspector.report.Reporter
-import ru.endlesscode.inspector.report.ReporterFocus
+import ru.endlesscode.inspector.report.*
 import ru.endlesscode.inspector.util.stackTraceText
 import java.io.File
 import java.io.InputStream
@@ -26,7 +23,6 @@ import java.util.logging.FileHandler
 import java.util.logging.Formatter
 import java.util.logging.Level
 import java.util.logging.LogRecord
-
 
 /**
  * Class that takes plugin, and watches for all exceptions.
@@ -51,7 +47,7 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
     public val lifecycle: PluginLifecycle
 
     init {
-        initLogger()
+        setupLoggerFile()
 
         try {
             lifecycle = lifecycleClass.getDeclaredConstructor().newInstance()
@@ -64,24 +60,11 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
         lifecycle.holder = this
         track { lifecycle.init() }
 
-        reporter = BukkitUnwrapReporter(createReporter())
+        reporter = createReporter()?.let(::configureReporter) ?: LoggerReporter(logger, focus = this)
         reporter.enabled = environment.isInspectorEnabled
-        reporter.addHandler(
-            beforeReport = { message, data ->
-                logger.debug("$TAG $message", data.exception)
-            },
-            onSuccess = { message, _ ->
-                logger.warning("$TAG $message")
-                logger.warning("$TAG Error was reported to author!")
-            },
-            onError = {
-                logger.warning("$TAG Error on report: ${it.localizedMessage}")
-                logger.debug(TAG, it)
-            }
-        )
     }
 
-    private fun initLogger() {
+    private fun setupLoggerFile() {
         val logsDir = Files.createDirectories(Paths.get("${dataFolder.path}/logs"))
         val fileHandler = FileHandler("$logsDir/latest.log", true).apply {
             level = Level.ALL
@@ -98,7 +81,30 @@ public abstract class TrackedPlugin @JvmOverloads constructor(
         logger.fixDebugLogs()
     }
 
-    protected abstract fun createReporter(): Reporter
+    private fun configureReporter(reporter: Reporter): BukkitUnwrapReporter {
+        return BukkitUnwrapReporter(reporter).apply {
+            addHandler(
+                beforeReport = { message, data ->
+                    logger.debug("$TAG $message", data.exception)
+                },
+                onSuccess = { message, _ ->
+                    logger.warning("$TAG $message")
+                    logger.warning("$TAG Error was reported to author!")
+                },
+                onError = {
+                    logger.warning("$TAG Error on report: ${it.localizedMessage}")
+                    logger.debug(TAG, it)
+                }
+            )
+        }
+    }
+
+    /**
+     * Creates reporter.
+     *
+     * Return `null` if you want fallback to [LoggerReporter].
+     */
+    protected abstract fun createReporter(): Reporter?
 
     final override fun getConfig(): FileConfiguration {
         return super.getConfig()
