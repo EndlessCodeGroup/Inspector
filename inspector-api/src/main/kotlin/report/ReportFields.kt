@@ -11,6 +11,7 @@ public interface ReportField {
     public val value: String
     public val show: Boolean
 
+    @JvmDefault
     public fun render(
         short: Boolean = true,
         separator: String = ": ",

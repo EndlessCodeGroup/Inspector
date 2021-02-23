@@ -3,6 +3,7 @@ package ru.endlesscode.inspector.report
 public interface ReportEnvironment {
 
     public companion object {
+        @JvmStatic
         public val EMPTY: ReportEnvironment = object : ReportEnvironment {
             override val appName: String = ""
             override val appVersion: String = ""
