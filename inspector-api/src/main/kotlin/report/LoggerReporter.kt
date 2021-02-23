@@ -3,6 +3,7 @@ package ru.endlesscode.inspector.report
 import java.util.logging.Level
 import java.util.logging.Logger
 
+/** Simply reports everything to the given [logger]. */
 public class LoggerReporter(
     private val logger: Logger,
     override val focus: ReporterFocus,
