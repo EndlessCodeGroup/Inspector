@@ -1,5 +1,5 @@
 plugins {
-    `bintray-publish`
+    publish
 }
 
 dependencies {

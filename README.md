@@ -58,9 +58,9 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
-// Inspector published at jcenter, so we need to add it to repositories
+// Inspector is published at Maven Central
 repositories { 
-    jcenter() 
+    mavenCentral() 
 }
 
 shadowJar {

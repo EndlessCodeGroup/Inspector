@@ -1,6 +1,8 @@
-import internal.java
-import internal.kotlin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    kotlin("jvm")
+}
 
 // Java version
 java {
@@ -13,11 +15,11 @@ kotlin {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    "implementation"(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.withType<KotlinCompile>().configureEach {

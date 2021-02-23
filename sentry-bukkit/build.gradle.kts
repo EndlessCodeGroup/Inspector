@@ -1,5 +1,5 @@
 plugins {
-    `bintray-publish`
+    publish
 }
 
 dependencies {
@@ -8,8 +8,5 @@ dependencies {
 }
 
 repositories {
-    maven {
-        name = "spigotmc-repo"
-        setUrl("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    }
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }

@@ -1,6 +1,6 @@
 // API build config
 plugins {
-    `bintray-publish`
+    publish
 }
 
 dependencies {
