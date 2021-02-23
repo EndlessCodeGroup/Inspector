@@ -1,8 +1,14 @@
 ## [Unreleased]
 
+### Changed
+
+- Better interoperability with Java
+
 ### Housekeeping
 
 - Migrate from jCenter to Maven Central
+- Update Gradle to 6.8.3
+- Update Sentry to 4.2.0
 
 ## [0.10.1]
 
