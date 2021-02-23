@@ -1,5 +1,5 @@
 POST https://hastebin.com/documents
-Content-type: text/plain
+Content-Type: text/plain
 
 Test content
 

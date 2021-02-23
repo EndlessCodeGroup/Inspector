@@ -4,7 +4,7 @@ import ru.endlesscode.bukkitgradle.dependencies.spigotApi
 // Bukkit implementation build config
 
 plugins {
-    id("ru.endlesscode.bukkitgradle") version "0.9.1"
+    id("ru.endlesscode.bukkitgradle") version "0.9.2"
     publish
 }
 

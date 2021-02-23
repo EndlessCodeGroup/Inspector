@@ -73,6 +73,7 @@ public class SentryReporter private constructor(
 
         /**
          * Set Sentry [dsn].
+         *
          * See: [Setting the DSN](https://docs.sentry.io/clients/java/config/#setting-the-dsn)
          */
         public fun setDsn(dsn: String): Builder {

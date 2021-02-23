@@ -19,7 +19,6 @@ public class BukkitEnvironment internal constructor(
         public const val FIELD_INSPECTOR_VERSION: String = "Inspector version"
         public const val FIELD_REPORTER_ID: String = "Reporter ID"
 
-        @JvmStatic
         internal val DEFAULT_PROPERTIES = Properties()
     }
 
@@ -42,7 +41,7 @@ public class BukkitEnvironment internal constructor(
         ).showOnlyIf { inspector.shouldSendData(DataType.PLUGINS) },
 
         FIELD_INSPECTOR_VERSION to TextField(FIELD_INSPECTOR_VERSION, Inspector.version),
-        FIELD_REPORTER_ID to TextField(FIELD_REPORTER_ID, inspector.serverId.toString())
+        FIELD_REPORTER_ID to TextField(FIELD_REPORTER_ID, inspector.serverId.toString()),
     )
 
     override val isInspectorEnabled: Boolean
