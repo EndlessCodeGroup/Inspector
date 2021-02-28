@@ -4,16 +4,11 @@ plugins {
     id("com.github.ben-manes.versions") version "0.36.0"
 }
 
-description = "Catch and report all exceptions"
-
 // Common configurations for all subprojects
 subprojects {
     apply(plugin = "commons")
 
     group = "ru.endlesscode.inspector"
-    description = rootProject.description
-    base.archivesBaseName = name
-
     version = "0.11.0"
 }
 

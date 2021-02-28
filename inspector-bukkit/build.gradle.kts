@@ -8,6 +8,8 @@ plugins {
     publish
 }
 
+description = "Inspector implementation for Bukkit"
+
 bukkit {
     apiVersion = "1.16.5"
 
