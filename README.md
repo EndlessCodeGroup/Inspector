@@ -1,5 +1,7 @@
 # Inspector
 
+[![Version](https://img.shields.io/maven-central/v/ru.endlesscode.inspector/inspector-api?style=flat-square)][mavenCentral] [![License](https://img.shields.io/github/license/EndlessCodeGroup/Inspector?style=flat-square)][license]
+
 ![Inspector Example](https://gitlab.com/endlesscodegroup/inspector/raw/develop/images/example.png)  
 
 Inspector helps developers to track all exceptions and crashes of theirs plugins.
@@ -53,7 +55,7 @@ Also, for more coverage, you should:
 ### Add Inspector to the project
 ```groovy
 plugins {
-    // Add shadow plugin to make shadowJar
+    // Add shadow plugin to shade inspector
     // See: http://imperceptiblethoughts.com/shadow/
     id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
@@ -158,3 +160,6 @@ public class MyTrackedPlugin extends TrackedPlugin {
     }
 }
 ```
+
+[license]: LICENSE
+[mavenCentral]: https://search.maven.org/search?q=g:ru.endlesscode.inspector
