@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Added
+
+- Bukkit 1.17 support
+
 ### Housekeeping
 
 - Gradle 6.8.3 -> 7.2

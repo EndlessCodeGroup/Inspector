@@ -25,6 +25,7 @@ public abstract class ru/endlesscode/inspector/bukkit/plugin/PluginLifecycle : o
 	public final fun getCommand (Ljava/lang/String;)Lorg/bukkit/command/PluginCommand;
 	public final fun getConfig ()Lorg/bukkit/configuration/file/FileConfiguration;
 	public final fun getDataFolder ()Ljava/io/File;
+	public fun getDefaultBiomeProvider (Ljava/lang/String;Ljava/lang/String;)Lorg/bukkit/generator/BiomeProvider;
 	public fun getDefaultWorldGenerator (Ljava/lang/String;Ljava/lang/String;)Lorg/bukkit/generator/ChunkGenerator;
 	public final fun getDescription ()Lorg/bukkit/plugin/PluginDescriptionFile;
 	protected final fun getFile ()Ljava/io/File;

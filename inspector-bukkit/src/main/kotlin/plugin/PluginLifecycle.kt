@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.PluginCommand
 import org.bukkit.configuration.file.FileConfiguration
+import org.bukkit.generator.BiomeProvider
 import org.bukkit.generator.ChunkGenerator
 import org.bukkit.plugin.PluginBase
 import org.bukkit.plugin.PluginDescriptionFile
@@ -90,6 +91,8 @@ public abstract class PluginLifecycle : PluginBase() {
     override fun onDisable() {}
 
     override fun getDefaultWorldGenerator(worldName: String, id: String?): ChunkGenerator? = null
+
+    override fun getDefaultBiomeProvider(worldName: String, id: String?): BiomeProvider? = null
 
     final override fun isNaggable(): Boolean = holder.isNaggable
 
