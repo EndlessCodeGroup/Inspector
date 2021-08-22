@@ -1,5 +1,6 @@
 package ru.endlesscode.inspector.report
 
+import io.sentry.EventProcessor
 import io.sentry.Integration
 import io.sentry.Sentry
 import io.sentry.SentryEvent
@@ -27,12 +28,14 @@ public class SentryReporter private constructor(
             options.addInAppInclude(focus.focusedPackage)
             options.enableUncaughtExceptionHandler = false
             integrations.forEach(options::addIntegration)
-            options.addEventProcessor { event, _ ->
-                fields.asSequence()
-                    .filter(ReportField::show)
-                    .forEach { event.setExtra(it.name, it.value) }
-                event
-            }
+            options.addEventProcessor(object : EventProcessor {
+                override fun process(event: SentryEvent, hint: Any?): SentryEvent {
+                    fields.asSequence()
+                        .filter(ReportField::show)
+                        .forEach { event.setExtra(it.name, it.value) }
+                    return event
+                }
+            })
         }
 
         Sentry.configureScope { scope ->
@@ -116,7 +119,7 @@ public class SentryReporter private constructor(
         }
 
         /**
-         * Build configured [SentryReporter].
+         * Builds configured [SentryReporter].
          */
         override fun build(): Reporter {
             require(dsn.isNotBlank()) {
