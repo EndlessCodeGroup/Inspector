@@ -1,0 +1,169 @@
+public final class ru/endlesscode/inspector/dsl/Code : ru/endlesscode/inspector/dsl/Group {
+}
+
+public abstract class ru/endlesscode/inspector/dsl/Group : ru/endlesscode/inspector/dsl/Element {
+	protected final fun initGroup (Lru/endlesscode/inspector/dsl/Group;Lkotlin/jvm/functions/Function1;)Lru/endlesscode/inspector/dsl/Group;
+	public fun render (Ljava/lang/StringBuilder;Ljava/lang/String;)V
+	public fun toString ()Ljava/lang/String;
+	public final fun unaryPlus (Ljava/lang/String;)V
+	public final fun unaryPlus (Ljava/util/List;)V
+}
+
+public final class ru/endlesscode/inspector/dsl/Markdown : ru/endlesscode/inspector/dsl/TextGroup {
+	public final fun code (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lru/endlesscode/inspector/dsl/Code;
+	public static synthetic fun code$default (Lru/endlesscode/inspector/dsl/Markdown;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lru/endlesscode/inspector/dsl/Code;
+}
+
+public final class ru/endlesscode/inspector/dsl/MarkdownKt {
+	public static final fun markdown (Lkotlin/jvm/functions/Function1;)Lru/endlesscode/inspector/dsl/Markdown;
+}
+
+public abstract class ru/endlesscode/inspector/dsl/TextGroup : ru/endlesscode/inspector/dsl/Group {
+	public final fun b (Ljava/lang/String;)Ljava/lang/String;
+	public final fun hr ()Ljava/lang/String;
+	public final fun it (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public abstract class ru/endlesscode/inspector/report/CachingReporter : ru/endlesscode/inspector/report/Reporter {
+	public fun <init> ()V
+	public fun addHandler (Lru/endlesscode/inspector/report/ReportHandler;)V
+	public fun getEnabled ()Z
+	public final fun report (Ljava/lang/String;Ljava/lang/Exception;Z)V
+	public abstract fun report (Ljava/lang/String;Lru/endlesscode/inspector/report/ExceptionData;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun setEnabled (Z)V
+}
+
+public final class ru/endlesscode/inspector/report/CompoundReportHandler : ru/endlesscode/inspector/report/ReportHandler {
+	public fun <init> ()V
+	public final fun addHandler (Lru/endlesscode/inspector/report/ReportHandler;)V
+	public fun beforeReport (Ljava/lang/String;Lru/endlesscode/inspector/report/ExceptionData;)V
+	public fun onError (Ljava/lang/Throwable;)V
+	public fun onSuccess (Ljava/lang/String;Lru/endlesscode/inspector/report/ExceptionData;)V
+}
+
+public final class ru/endlesscode/inspector/report/ExceptionData {
+	public fun <init> (Ljava/lang/Exception;I)V
+	public synthetic fun <init> (Ljava/lang/Exception;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getException ()Ljava/lang/Exception;
+	public final fun getTimes ()I
+	public final fun setTimes (I)V
+}
+
+public class ru/endlesscode/inspector/report/ListField : ru/endlesscode/inspector/report/ReportField {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)V
+	protected fun getList ()Ljava/util/List;
+	public fun getName ()Ljava/lang/String;
+	public fun getShortValue ()Ljava/lang/String;
+	public final fun getShow ()Z
+	public fun getValue ()Ljava/lang/String;
+	public final fun showOnlyIf (Lkotlin/jvm/functions/Function1;)Lru/endlesscode/inspector/report/ListField;
+}
+
+public final class ru/endlesscode/inspector/report/LoggerReporter : ru/endlesscode/inspector/report/Reporter {
+	public fun <init> (Ljava/util/logging/Logger;Lru/endlesscode/inspector/report/ReporterFocus;)V
+	public fun addHandler (Lru/endlesscode/inspector/report/ReportHandler;)V
+	public fun getEnabled ()Z
+	public fun getFocus ()Lru/endlesscode/inspector/report/ReporterFocus;
+	public fun report (Ljava/lang/String;Ljava/lang/Exception;Z)V
+	public fun setEnabled (Z)V
+}
+
+public abstract interface class ru/endlesscode/inspector/report/ReportEnvironment {
+	public static final field Companion Lru/endlesscode/inspector/report/ReportEnvironment$Companion;
+	public abstract fun getAppName ()Ljava/lang/String;
+	public abstract fun getAppVersion ()Ljava/lang/String;
+	public static fun getEMPTY ()Lru/endlesscode/inspector/report/ReportEnvironment;
+	public abstract fun getFields ()Ljava/util/Map;
+	public abstract fun getReporterId ()Ljava/lang/String;
+	public abstract fun isInspectorEnabled ()Z
+}
+
+public final class ru/endlesscode/inspector/report/ReportEnvironment$Companion {
+	public final fun getEMPTY ()Lru/endlesscode/inspector/report/ReportEnvironment;
+}
+
+public abstract interface class ru/endlesscode/inspector/report/ReportField {
+	public static final field Companion Lru/endlesscode/inspector/report/ReportField$Companion;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getShortValue ()Ljava/lang/String;
+	public abstract fun getShow ()Z
+	public abstract fun getValue ()Ljava/lang/String;
+	public fun render (ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+	public static synthetic fun render$default (Lru/endlesscode/inspector/report/ReportField;ZLjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/String;
+}
+
+public final class ru/endlesscode/inspector/report/ReportField$Companion {
+}
+
+public abstract interface class ru/endlesscode/inspector/report/ReportHandler {
+	public abstract fun beforeReport (Ljava/lang/String;Lru/endlesscode/inspector/report/ExceptionData;)V
+	public abstract fun onError (Ljava/lang/Throwable;)V
+	public abstract fun onSuccess (Ljava/lang/String;Lru/endlesscode/inspector/report/ExceptionData;)V
+}
+
+public final class ru/endlesscode/inspector/report/ReportedException : java/lang/RuntimeException {
+	public fun <init> (Ljava/lang/Throwable;)V
+}
+
+public abstract interface class ru/endlesscode/inspector/report/Reporter {
+	public fun addHandler (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)V
+	public abstract fun addHandler (Lru/endlesscode/inspector/report/ReportHandler;)V
+	public static synthetic fun addHandler$default (Lru/endlesscode/inspector/report/Reporter;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public abstract fun getEnabled ()Z
+	public abstract fun getFocus ()Lru/endlesscode/inspector/report/ReporterFocus;
+	public fun report (Ljava/lang/String;Ljava/lang/Exception;)V
+	public abstract fun report (Ljava/lang/String;Ljava/lang/Exception;Z)V
+	public abstract fun setEnabled (Z)V
+	public fun track (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+}
+
+public abstract class ru/endlesscode/inspector/report/Reporter$Builder {
+	public fun <init> ()V
+	public final fun addCustomFields ([Lru/endlesscode/inspector/report/ReportField;)Lru/endlesscode/inspector/report/Reporter$Builder;
+	public final fun addFields ([Ljava/lang/String;)Lru/endlesscode/inspector/report/Reporter$Builder;
+	public abstract fun build ()Lru/endlesscode/inspector/report/Reporter;
+	public final fun focusOn (Lru/endlesscode/inspector/report/ReporterFocus;)Lru/endlesscode/inspector/report/Reporter$Builder;
+	protected final fun getFields ()Ljava/util/Set;
+	protected final fun getFocus ()Lru/endlesscode/inspector/report/ReporterFocus;
+	public final fun removeFields ([Ljava/lang/String;)Lru/endlesscode/inspector/report/Reporter$Builder;
+	public final fun setFields ([Ljava/lang/String;)Lru/endlesscode/inspector/report/Reporter$Builder;
+	protected final fun setFocus (Lru/endlesscode/inspector/report/ReporterFocus;)V
+}
+
+public abstract interface class ru/endlesscode/inspector/report/ReporterFocus {
+	public static final field Companion Lru/endlesscode/inspector/report/ReporterFocus$Companion;
+	public abstract fun getEnvironment ()Lru/endlesscode/inspector/report/ReportEnvironment;
+	public abstract fun getFocusedPackage ()Ljava/lang/String;
+	public static fun getNO_FOCUS ()Lru/endlesscode/inspector/report/ReporterFocus;
+}
+
+public final class ru/endlesscode/inspector/report/ReporterFocus$Companion {
+	public final fun getNO_FOCUS ()Lru/endlesscode/inspector/report/ReporterFocus;
+}
+
+public class ru/endlesscode/inspector/report/TextField : ru/endlesscode/inspector/report/ReportField {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getName ()Ljava/lang/String;
+	public fun getShortValue ()Ljava/lang/String;
+	public final fun getShow ()Z
+	public fun getValue ()Ljava/lang/String;
+	public final fun showOnlyIf (Lkotlin/jvm/functions/Function1;)Lru/endlesscode/inspector/report/ReportField;
+}
+
+public abstract interface class ru/endlesscode/inspector/service/TextStorage {
+	public abstract fun storeText (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class ru/endlesscode/inspector/util/ExceptionsKt {
+	public static final fun getFocusedRootStackTrace (Ljava/lang/Throwable;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun getRootCause (Ljava/lang/Throwable;)Ljava/lang/Throwable;
+	public static final fun getStackTraceText (Ljava/lang/Throwable;)Ljava/lang/String;
+	public static final fun similarTo (Ljava/lang/Throwable;Ljava/lang/Throwable;)Z
+}
+
+public final class ru/endlesscode/inspector/util/JsonUtilsKt {
+	public static final fun escape (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun json ([Lkotlin/Pair;)Ljava/lang/String;
+}
+

@@ -1,0 +1,337 @@
+public final class ru/endlesscode/inspector/bukkit/Inspector {
+	public static final field Companion Lru/endlesscode/inspector/bukkit/Inspector$Companion;
+	public static final field version Ljava/lang/String;
+	public final fun getServerId ()Ljava/util/UUID;
+	public final fun isEnabled ()Z
+	public final fun reload ()V
+	public final fun shouldSendData (Lru/endlesscode/inspector/bukkit/report/DataType;)Z
+}
+
+public final class ru/endlesscode/inspector/bukkit/Inspector$Companion {
+}
+
+public final class ru/endlesscode/inspector/bukkit/InspectorPlugin : org/bukkit/plugin/java/JavaPlugin {
+	public fun <init> ()V
+	public fun onLoad ()V
+}
+
+public final class ru/endlesscode/inspector/bukkit/command/TrackedCommandExecutor : org/bukkit/command/CommandExecutor {
+	public fun onCommand (Lorg/bukkit/command/CommandSender;Lorg/bukkit/command/Command;Ljava/lang/String;[Ljava/lang/String;)Z
+}
+
+public abstract class ru/endlesscode/inspector/bukkit/plugin/PluginLifecycle : org/bukkit/plugin/PluginBase {
+	public fun <init> ()V
+	protected final fun getClassLoader ()Ljava/lang/ClassLoader;
+	public final fun getCommand (Ljava/lang/String;)Lorg/bukkit/command/PluginCommand;
+	public final fun getConfig ()Lorg/bukkit/configuration/file/FileConfiguration;
+	public final fun getDataFolder ()Ljava/io/File;
+	public fun getDefaultWorldGenerator (Ljava/lang/String;Ljava/lang/String;)Lorg/bukkit/generator/ChunkGenerator;
+	public final fun getDescription ()Lorg/bukkit/plugin/PluginDescriptionFile;
+	protected final fun getFile ()Ljava/io/File;
+	public final fun getHolder ()Lru/endlesscode/inspector/bukkit/plugin/TrackedPlugin;
+	public final fun getLogger ()Ljava/util/logging/Logger;
+	public final fun getPluginLoader ()Lorg/bukkit/plugin/PluginLoader;
+	public final fun getReporter ()Lru/endlesscode/inspector/report/Reporter;
+	public final fun getResource (Ljava/lang/String;)Ljava/io/InputStream;
+	public final fun getServer ()Lorg/bukkit/Server;
+	protected final fun getTextResource (Ljava/lang/String;)Ljava/io/Reader;
+	public fun init ()V
+	public final fun isEnabled ()Z
+	public final fun isNaggable ()Z
+	public fun onCommand (Lorg/bukkit/command/CommandSender;Lorg/bukkit/command/Command;Ljava/lang/String;[Ljava/lang/String;)Z
+	public fun onDisable ()V
+	public fun onEnable ()V
+	public fun onLoad ()V
+	public fun onTabComplete (Lorg/bukkit/command/CommandSender;Lorg/bukkit/command/Command;Ljava/lang/String;[Ljava/lang/String;)Ljava/util/List;
+	public final fun reloadConfig ()V
+	public final fun saveConfig ()V
+	public final fun saveDefaultConfig ()V
+	public final fun saveResource (Ljava/lang/String;Z)V
+	protected final fun setEnabled (Z)V
+	public final fun setNaggable (Z)V
+	public fun toString ()Ljava/lang/String;
+	protected final fun track (Lorg/bukkit/command/CommandExecutor;)Lorg/bukkit/command/CommandExecutor;
+}
+
+public abstract class ru/endlesscode/inspector/bukkit/plugin/TrackedPlugin : org/bukkit/plugin/java/JavaPlugin, ru/endlesscode/inspector/report/ReporterFocus {
+	public static final field Companion Lru/endlesscode/inspector/bukkit/plugin/TrackedPlugin$Companion;
+	public fun <init> (Ljava/lang/Class;)V
+	public fun <init> (Ljava/lang/Class;Lru/endlesscode/inspector/bukkit/report/BukkitEnvironment$Properties;)V
+	public synthetic fun <init> (Ljava/lang/Class;Lru/endlesscode/inspector/bukkit/report/BukkitEnvironment$Properties;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected abstract fun createReporter ()Lru/endlesscode/inspector/report/Reporter;
+	public final fun getCommand (Ljava/lang/String;)Lorg/bukkit/command/PluginCommand;
+	public final fun getConfig ()Lorg/bukkit/configuration/file/FileConfiguration;
+	public final fun getDefaultWorldGenerator (Ljava/lang/String;Ljava/lang/String;)Lorg/bukkit/generator/ChunkGenerator;
+	public fun getEnvironment ()Lru/endlesscode/inspector/report/ReportEnvironment;
+	public fun getFocusedPackage ()Ljava/lang/String;
+	public final fun getLifecycle ()Lru/endlesscode/inspector/bukkit/plugin/PluginLifecycle;
+	public final fun getReporter ()Lru/endlesscode/inspector/report/Reporter;
+	public final fun getResource (Ljava/lang/String;)Ljava/io/InputStream;
+	public final fun onCommand (Lorg/bukkit/command/CommandSender;Lorg/bukkit/command/Command;Ljava/lang/String;[Ljava/lang/String;)Z
+	public final fun onDisable ()V
+	public final fun onEnable ()V
+	public final fun onLoad ()V
+	public final fun onTabComplete (Lorg/bukkit/command/CommandSender;Lorg/bukkit/command/Command;Ljava/lang/String;[Ljava/lang/String;)Ljava/util/List;
+	public final fun reloadConfig ()V
+	public final fun saveConfig ()V
+	public final fun saveDefaultConfig ()V
+	public final fun saveResource (Ljava/lang/String;Z)V
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ru/endlesscode/inspector/bukkit/plugin/TrackedPlugin$Companion {
+}
+
+public final class ru/endlesscode/inspector/bukkit/plugin/TrackedPluginLoader : org/bukkit/plugin/PluginLoader {
+	public fun createRegisteredListeners (Lorg/bukkit/event/Listener;Lorg/bukkit/plugin/Plugin;)Ljava/util/Map;
+	public fun disablePlugin (Lorg/bukkit/plugin/Plugin;)V
+	public fun enablePlugin (Lorg/bukkit/plugin/Plugin;)V
+	public fun getPluginDescription (Ljava/io/File;)Lorg/bukkit/plugin/PluginDescriptionFile;
+	public fun getPluginFileFilters ()[Ljava/util/regex/Pattern;
+	public fun loadPlugin (Ljava/io/File;)Lorg/bukkit/plugin/Plugin;
+}
+
+public final class ru/endlesscode/inspector/bukkit/plugin/TrackedPluginManager : org/bukkit/plugin/PluginManager {
+	public fun addPermission (Lorg/bukkit/permissions/Permission;)V
+	public fun callEvent (Lorg/bukkit/event/Event;)V
+	public fun clearPlugins ()V
+	public fun disablePlugin (Lorg/bukkit/plugin/Plugin;)V
+	public fun disablePlugins ()V
+	public fun enablePlugin (Lorg/bukkit/plugin/Plugin;)V
+	public fun getDefaultPermSubscriptions (Z)Ljava/util/Set;
+	public fun getDefaultPermissions (Z)Ljava/util/Set;
+	public fun getPermission (Ljava/lang/String;)Lorg/bukkit/permissions/Permission;
+	public fun getPermissionSubscriptions (Ljava/lang/String;)Ljava/util/Set;
+	public fun getPermissions ()Ljava/util/Set;
+	public fun getPlugin (Ljava/lang/String;)Lorg/bukkit/plugin/Plugin;
+	public fun getPlugins ()[Lorg/bukkit/plugin/Plugin;
+	public fun isPluginEnabled (Ljava/lang/String;)Z
+	public fun isPluginEnabled (Lorg/bukkit/plugin/Plugin;)Z
+	public fun loadPlugin (Ljava/io/File;)Lorg/bukkit/plugin/Plugin;
+	public fun loadPlugins (Ljava/io/File;)[Lorg/bukkit/plugin/Plugin;
+	public fun recalculatePermissionDefaults (Lorg/bukkit/permissions/Permission;)V
+	public fun registerEvent (Ljava/lang/Class;Lorg/bukkit/event/Listener;Lorg/bukkit/event/EventPriority;Lorg/bukkit/plugin/EventExecutor;Lorg/bukkit/plugin/Plugin;)V
+	public fun registerEvent (Ljava/lang/Class;Lorg/bukkit/event/Listener;Lorg/bukkit/event/EventPriority;Lorg/bukkit/plugin/EventExecutor;Lorg/bukkit/plugin/Plugin;Z)V
+	public fun registerEvents (Lorg/bukkit/event/Listener;Lorg/bukkit/plugin/Plugin;)V
+	public fun registerInterface (Ljava/lang/Class;)V
+	public fun removePermission (Ljava/lang/String;)V
+	public fun removePermission (Lorg/bukkit/permissions/Permission;)V
+	public fun subscribeToDefaultPerms (ZLorg/bukkit/permissions/Permissible;)V
+	public fun subscribeToPermission (Ljava/lang/String;Lorg/bukkit/permissions/Permissible;)V
+	public fun unsubscribeFromDefaultPerms (ZLorg/bukkit/permissions/Permissible;)V
+	public fun unsubscribeFromPermission (Ljava/lang/String;Lorg/bukkit/permissions/Permissible;)V
+	public fun useTimings ()Z
+}
+
+public final class ru/endlesscode/inspector/bukkit/plugin/TrackedServer : org/bukkit/Server {
+	public fun addRecipe (Lorg/bukkit/inventory/Recipe;)Z
+	public fun advancementIterator ()Ljava/util/Iterator;
+	public fun banIP (Ljava/lang/String;)V
+	public fun broadcast (Ljava/lang/String;Ljava/lang/String;)I
+	public fun broadcastMessage (Ljava/lang/String;)I
+	public fun clearRecipes ()V
+	public fun craftItem ([Lorg/bukkit/inventory/ItemStack;Lorg/bukkit/World;Lorg/bukkit/entity/Player;)Lorg/bukkit/inventory/ItemStack;
+	public fun createBlockData (Ljava/lang/String;)Lorg/bukkit/block/data/BlockData;
+	public fun createBlockData (Lorg/bukkit/Material;)Lorg/bukkit/block/data/BlockData;
+	public fun createBlockData (Lorg/bukkit/Material;Ljava/lang/String;)Lorg/bukkit/block/data/BlockData;
+	public fun createBlockData (Lorg/bukkit/Material;Ljava/util/function/Consumer;)Lorg/bukkit/block/data/BlockData;
+	public fun createBossBar (Ljava/lang/String;Lorg/bukkit/boss/BarColor;Lorg/bukkit/boss/BarStyle;[Lorg/bukkit/boss/BarFlag;)Lorg/bukkit/boss/BossBar;
+	public fun createBossBar (Lorg/bukkit/NamespacedKey;Ljava/lang/String;Lorg/bukkit/boss/BarColor;Lorg/bukkit/boss/BarStyle;[Lorg/bukkit/boss/BarFlag;)Lorg/bukkit/boss/KeyedBossBar;
+	public fun createChunkData (Lorg/bukkit/World;)Lorg/bukkit/generator/ChunkGenerator$ChunkData;
+	public fun createExplorerMap (Lorg/bukkit/World;Lorg/bukkit/Location;Lorg/bukkit/StructureType;)Lorg/bukkit/inventory/ItemStack;
+	public fun createExplorerMap (Lorg/bukkit/World;Lorg/bukkit/Location;Lorg/bukkit/StructureType;IZ)Lorg/bukkit/inventory/ItemStack;
+	public fun createInventory (Lorg/bukkit/inventory/InventoryHolder;I)Lorg/bukkit/inventory/Inventory;
+	public fun createInventory (Lorg/bukkit/inventory/InventoryHolder;ILjava/lang/String;)Lorg/bukkit/inventory/Inventory;
+	public fun createInventory (Lorg/bukkit/inventory/InventoryHolder;Lorg/bukkit/event/inventory/InventoryType;)Lorg/bukkit/inventory/Inventory;
+	public fun createInventory (Lorg/bukkit/inventory/InventoryHolder;Lorg/bukkit/event/inventory/InventoryType;Ljava/lang/String;)Lorg/bukkit/inventory/Inventory;
+	public fun createMap (Lorg/bukkit/World;)Lorg/bukkit/map/MapView;
+	public fun createMerchant (Ljava/lang/String;)Lorg/bukkit/inventory/Merchant;
+	public fun createWorld (Lorg/bukkit/WorldCreator;)Lorg/bukkit/World;
+	public fun dispatchCommand (Lorg/bukkit/command/CommandSender;Ljava/lang/String;)Z
+	public fun getAdvancement (Lorg/bukkit/NamespacedKey;)Lorg/bukkit/advancement/Advancement;
+	public fun getAllowEnd ()Z
+	public fun getAllowFlight ()Z
+	public fun getAllowNether ()Z
+	public fun getAmbientSpawnLimit ()I
+	public fun getAnimalSpawnLimit ()I
+	public fun getBanList (Lorg/bukkit/BanList$Type;)Lorg/bukkit/BanList;
+	public fun getBannedPlayers ()Ljava/util/Set;
+	public fun getBossBar (Lorg/bukkit/NamespacedKey;)Lorg/bukkit/boss/KeyedBossBar;
+	public fun getBossBars ()Ljava/util/Iterator;
+	public fun getBukkitVersion ()Ljava/lang/String;
+	public fun getCommandAliases ()Ljava/util/Map;
+	public fun getConnectionThrottle ()J
+	public fun getConsoleSender ()Lorg/bukkit/command/ConsoleCommandSender;
+	public fun getCraftingRecipe ([Lorg/bukkit/inventory/ItemStack;Lorg/bukkit/World;)Lorg/bukkit/inventory/Recipe;
+	public fun getDefaultGameMode ()Lorg/bukkit/GameMode;
+	public fun getEntity (Ljava/util/UUID;)Lorg/bukkit/entity/Entity;
+	public fun getGenerateStructures ()Z
+	public fun getHelpMap ()Lorg/bukkit/help/HelpMap;
+	public fun getIPBans ()Ljava/util/Set;
+	public fun getIdleTimeout ()I
+	public fun getIp ()Ljava/lang/String;
+	public fun getItemFactory ()Lorg/bukkit/inventory/ItemFactory;
+	public fun getListeningPluginChannels ()Ljava/util/Set;
+	public fun getLogger ()Ljava/util/logging/Logger;
+	public fun getLootTable (Lorg/bukkit/NamespacedKey;)Lorg/bukkit/loot/LootTable;
+	public fun getMap (I)Lorg/bukkit/map/MapView;
+	public fun getMaxPlayers ()I
+	public fun getMaxWorldSize ()I
+	public fun getMessenger ()Lorg/bukkit/plugin/messaging/Messenger;
+	public fun getMonsterSpawnLimit ()I
+	public fun getMotd ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getOfflinePlayer (Ljava/lang/String;)Lorg/bukkit/OfflinePlayer;
+	public fun getOfflinePlayer (Ljava/util/UUID;)Lorg/bukkit/OfflinePlayer;
+	public fun getOfflinePlayers ()[Lorg/bukkit/OfflinePlayer;
+	public fun getOnlineMode ()Z
+	public fun getOnlinePlayers ()Ljava/util/Collection;
+	public fun getOperators ()Ljava/util/Set;
+	public fun getPlayer (Ljava/lang/String;)Lorg/bukkit/entity/Player;
+	public fun getPlayer (Ljava/util/UUID;)Lorg/bukkit/entity/Player;
+	public fun getPlayerExact (Ljava/lang/String;)Lorg/bukkit/entity/Player;
+	public fun getPluginCommand (Ljava/lang/String;)Lorg/bukkit/command/PluginCommand;
+	public fun getPluginManager ()Lorg/bukkit/plugin/PluginManager;
+	public fun getPort ()I
+	public fun getRecipe (Lorg/bukkit/NamespacedKey;)Lorg/bukkit/inventory/Recipe;
+	public fun getRecipesFor (Lorg/bukkit/inventory/ItemStack;)Ljava/util/List;
+	public fun getScheduler ()Lorg/bukkit/scheduler/BukkitScheduler;
+	public fun getScoreboardManager ()Lorg/bukkit/scoreboard/ScoreboardManager;
+	public final fun getServer ()Lorg/bukkit/Server;
+	public fun getServerIcon ()Lorg/bukkit/util/CachedServerIcon;
+	public fun getServicesManager ()Lorg/bukkit/plugin/ServicesManager;
+	public fun getShutdownMessage ()Ljava/lang/String;
+	public fun getSpawnRadius ()I
+	public fun getTag (Ljava/lang/String;Lorg/bukkit/NamespacedKey;Ljava/lang/Class;)Lorg/bukkit/Tag;
+	public fun getTags (Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Iterable;
+	public fun getTicksPerAmbientSpawns ()I
+	public fun getTicksPerAnimalSpawns ()I
+	public fun getTicksPerMonsterSpawns ()I
+	public fun getTicksPerWaterAmbientSpawns ()I
+	public fun getTicksPerWaterSpawns ()I
+	public fun getUnsafe ()Lorg/bukkit/UnsafeValues;
+	public fun getUpdateFolder ()Ljava/lang/String;
+	public fun getUpdateFolderFile ()Ljava/io/File;
+	public fun getVersion ()Ljava/lang/String;
+	public fun getViewDistance ()I
+	public fun getWarningState ()Lorg/bukkit/Warning$WarningState;
+	public fun getWaterAmbientSpawnLimit ()I
+	public fun getWaterAnimalSpawnLimit ()I
+	public fun getWhitelistedPlayers ()Ljava/util/Set;
+	public fun getWorld (Ljava/lang/String;)Lorg/bukkit/World;
+	public fun getWorld (Ljava/util/UUID;)Lorg/bukkit/World;
+	public fun getWorldContainer ()Ljava/io/File;
+	public fun getWorldType ()Ljava/lang/String;
+	public fun getWorlds ()Ljava/util/List;
+	public fun hasWhitelist ()Z
+	public fun isHardcore ()Z
+	public fun isPrimaryThread ()Z
+	public fun isWhitelistEnforced ()Z
+	public fun loadServerIcon (Ljava/awt/image/BufferedImage;)Lorg/bukkit/util/CachedServerIcon;
+	public fun loadServerIcon (Ljava/io/File;)Lorg/bukkit/util/CachedServerIcon;
+	public fun matchPlayer (Ljava/lang/String;)Ljava/util/List;
+	public fun recipeIterator ()Ljava/util/Iterator;
+	public fun reload ()V
+	public fun reloadData ()V
+	public fun reloadWhitelist ()V
+	public fun removeBossBar (Lorg/bukkit/NamespacedKey;)Z
+	public fun removeRecipe (Lorg/bukkit/NamespacedKey;)Z
+	public fun resetRecipes ()V
+	public fun savePlayers ()V
+	public fun selectEntities (Lorg/bukkit/command/CommandSender;Ljava/lang/String;)Ljava/util/List;
+	public fun sendPluginMessage (Lorg/bukkit/plugin/Plugin;Ljava/lang/String;[B)V
+	public fun setDefaultGameMode (Lorg/bukkit/GameMode;)V
+	public fun setIdleTimeout (I)V
+	public fun setSpawnRadius (I)V
+	public fun setWhitelist (Z)V
+	public fun setWhitelistEnforced (Z)V
+	public fun shutdown ()V
+	public fun spigot ()Lorg/bukkit/Server$Spigot;
+	public fun unbanIP (Ljava/lang/String;)V
+	public fun unloadWorld (Ljava/lang/String;Z)Z
+	public fun unloadWorld (Lorg/bukkit/World;Z)Z
+}
+
+public final class ru/endlesscode/inspector/bukkit/report/BukkitEnvironment : ru/endlesscode/inspector/report/ReportEnvironment {
+	public static final field Companion Lru/endlesscode/inspector/bukkit/report/BukkitEnvironment$Companion;
+	public static final field FIELD_CORE Ljava/lang/String;
+	public static final field FIELD_INSPECTOR_VERSION Ljava/lang/String;
+	public static final field FIELD_PLUGIN Ljava/lang/String;
+	public static final field FIELD_PLUGIN_LIST Ljava/lang/String;
+	public static final field FIELD_REPORTER_ID Ljava/lang/String;
+	public fun getAppName ()Ljava/lang/String;
+	public fun getAppVersion ()Ljava/lang/String;
+	public fun getFields ()Ljava/util/Map;
+	public final fun getInspector ()Lru/endlesscode/inspector/bukkit/Inspector;
+	public fun getReporterId ()Ljava/lang/String;
+	public fun isInspectorEnabled ()Z
+}
+
+public final class ru/endlesscode/inspector/bukkit/report/BukkitEnvironment$Companion {
+}
+
+public final class ru/endlesscode/inspector/bukkit/report/BukkitEnvironment$Properties {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getConfigName ()Ljava/lang/String;
+	public final fun getInterestPluginsNames ()Ljava/util/List;
+}
+
+public final class ru/endlesscode/inspector/bukkit/report/DataType : java/lang/Enum {
+	public static final field CORE Lru/endlesscode/inspector/bukkit/report/DataType;
+	public static final field PLUGINS Lru/endlesscode/inspector/bukkit/report/DataType;
+	public static fun valueOf (Ljava/lang/String;)Lru/endlesscode/inspector/bukkit/report/DataType;
+	public static fun values ()[Lru/endlesscode/inspector/bukkit/report/DataType;
+}
+
+public abstract class ru/endlesscode/inspector/bukkit/scheduler/TrackedBukkitRunnable : org/bukkit/scheduler/BukkitRunnable {
+	public fun <init> ()V
+	public fun getTaskId ()I
+	public fun isCancelled ()Z
+	public fun runTask (Lorg/bukkit/plugin/Plugin;)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskAsynchronously (Lorg/bukkit/plugin/Plugin;)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskLater (Lorg/bukkit/plugin/Plugin;J)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskLaterAsynchronously (Lorg/bukkit/plugin/Plugin;J)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskTimer (Lorg/bukkit/plugin/Plugin;JJ)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskTimerAsynchronously (Lorg/bukkit/plugin/Plugin;JJ)Lorg/bukkit/scheduler/BukkitTask;
+}
+
+public final class ru/endlesscode/inspector/bukkit/scheduler/TrackedScheduler : org/bukkit/scheduler/BukkitScheduler {
+	public fun callSyncMethod (Lorg/bukkit/plugin/Plugin;Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Future;
+	public fun cancelTask (I)V
+	public fun cancelTasks (Lorg/bukkit/plugin/Plugin;)V
+	public fun getActiveWorkers ()Ljava/util/List;
+	public fun getPendingTasks ()Ljava/util/List;
+	public fun isCurrentlyRunning (I)Z
+	public fun isQueued (I)Z
+	public fun runTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTask (Lorg/bukkit/plugin/Plugin;Ljava/util/function/Consumer;)V
+	public fun runTask (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskAsynchronously (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskAsynchronously (Lorg/bukkit/plugin/Plugin;Ljava/util/function/Consumer;)V
+	public fun runTaskAsynchronously (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskLater (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;J)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskLater (Lorg/bukkit/plugin/Plugin;Ljava/util/function/Consumer;J)V
+	public fun runTaskLater (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;J)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskLaterAsynchronously (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;J)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskLaterAsynchronously (Lorg/bukkit/plugin/Plugin;Ljava/util/function/Consumer;J)V
+	public fun runTaskLaterAsynchronously (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;J)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskTimer (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;JJ)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskTimer (Lorg/bukkit/plugin/Plugin;Ljava/util/function/Consumer;JJ)V
+	public fun runTaskTimer (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;JJ)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskTimerAsynchronously (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;JJ)Lorg/bukkit/scheduler/BukkitTask;
+	public fun runTaskTimerAsynchronously (Lorg/bukkit/plugin/Plugin;Ljava/util/function/Consumer;JJ)V
+	public fun runTaskTimerAsynchronously (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;JJ)Lorg/bukkit/scheduler/BukkitTask;
+	public fun scheduleAsyncDelayedTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;)I
+	public fun scheduleAsyncDelayedTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;J)I
+	public fun scheduleAsyncRepeatingTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;JJ)I
+	public fun scheduleSyncDelayedTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;)I
+	public fun scheduleSyncDelayedTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;J)I
+	public fun scheduleSyncDelayedTask (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;)I
+	public fun scheduleSyncDelayedTask (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;J)I
+	public fun scheduleSyncRepeatingTask (Lorg/bukkit/plugin/Plugin;Ljava/lang/Runnable;JJ)I
+	public fun scheduleSyncRepeatingTask (Lorg/bukkit/plugin/Plugin;Lorg/bukkit/scheduler/BukkitRunnable;JJ)I
+}
+

@@ -1,0 +1,9 @@
+public final class ru/endlesscode/inspector/sentry/bukkit/SentryBukkitIntegration : io/sentry/Integration {
+	public static final field Companion Lru/endlesscode/inspector/sentry/bukkit/SentryBukkitIntegration$Companion;
+	public fun <init> (Lorg/bukkit/plugin/Plugin;)V
+	public fun register (Lio/sentry/IHub;Lio/sentry/SentryOptions;)V
+}
+
+public final class ru/endlesscode/inspector/sentry/bukkit/SentryBukkitIntegration$Companion {
+}
+
