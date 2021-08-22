@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### Housekeeping
+
+- Gradle 6.8.3 -> 7.2
+
 ## [0.11.0] (2021-02-23)
 
 ### Fallback reporter
@@ -14,7 +18,7 @@ This reporter simply prints everything to the plugin's logger, just like you not
 
 ### Housekeeping
 
-- Migrate from jCenter to Maven Central
+- Migrate from JCenter to Maven Central
 - Update Gradle to 6.8.3
 - Update Sentry to 4.2.0
 
