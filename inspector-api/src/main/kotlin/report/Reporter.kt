@@ -14,7 +14,6 @@ public interface Reporter {
     /**
      * Alias for [addHandler] method.
      */
-    @JvmDefault
     public fun addHandler(
         beforeReport: (String, ExceptionData) -> Unit = { _, _ -> },
         onSuccess: (String, ExceptionData) -> Unit = { _, _ -> },
@@ -45,7 +44,6 @@ public interface Reporter {
     /**
      * Report about [exception] with the [message] that describes when exception thrown (asynchronously).
      */
-    @JvmDefault
     public fun report(message: String, exception: Exception) {
         report(message, exception, async = true)
     }
@@ -63,7 +61,6 @@ public interface Reporter {
      * @param message The message that will be used as title
      * @param block Block that should be executed
      */
-    @JvmDefault
     public fun track(message: String, block: () -> Unit) {
         try {
             block.invoke()

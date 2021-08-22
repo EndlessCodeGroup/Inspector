@@ -16,7 +16,7 @@ public class SentryBukkitIntegration(private val plugin: Plugin) : Integration {
     }
 
     private val Server.knownName: String
-        get() = (KNOWN_SERVERS.find { it in version } ?: "Unknown").toLowerCase()
+        get() = (KNOWN_SERVERS.find { it in version } ?: "Unknown").lowercase()
     private val Server.minecraftVersion: String
         get() = bukkitVersion.substringBefore('-')
 

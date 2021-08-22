@@ -6,5 +6,5 @@ plugins {
 description = "Catch and report all exceptions"
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
 }
