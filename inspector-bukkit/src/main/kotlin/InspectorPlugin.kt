@@ -10,11 +10,11 @@ public class InspectorPlugin : JavaPlugin() {
 
     override fun onLoad() {
         logger.severe("")
-        logger.severe("Since v0.7.0 Inspector can't be loaded as a plugin more!")
+        logger.severe("Since v0.7.0 Inspector can't be loaded as a plugin anymore!")
         logger.severe("")
         logger.severe("What to do?")
-        logger.severe("  Please report about it to author of the plugin, that requires Inspector.")
-        logger.severe("  He should bundle it to the plugin.")
+        logger.severe("  Please report about it to author of the plugin, that requires Inspector to be installed.")
+        logger.severe("  He should bundle it into the plugin.")
         logger.severe("")
 
         throw AuthorNagException("Aggrh!!! Throwing an exception is only one possible way to disable plugin in onLoad()")

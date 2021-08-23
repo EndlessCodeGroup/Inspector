@@ -10,7 +10,7 @@ subprojects {
     apply(plugin = "commons")
 
     group = "ru.endlesscode.inspector"
-    version = "0.12.0-SNAPSHOT"
+    version = "0.12.0"
 }
 
 // Configuration for API implementations
