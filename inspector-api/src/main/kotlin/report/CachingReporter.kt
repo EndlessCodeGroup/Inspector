@@ -1,5 +1,6 @@
 package ru.endlesscode.inspector.report
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -31,6 +32,7 @@ public abstract class CachingReporter : Reporter {
         val exceptionData = ExceptionData(exception)
         handlers.beforeReport(message, exceptionData)
 
+        @OptIn(DelicateCoroutinesApi::class)
         val reportJob = GlobalScope.launch { report(message, exceptionData, handlers::onSuccess, handlers::onError) }
         if (!async) {
             runBlocking { reportJob.join() }

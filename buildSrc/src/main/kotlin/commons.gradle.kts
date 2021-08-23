@@ -25,8 +25,12 @@ dependencies {
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
         jvmTarget = "1.8"
-        apiVersion = "1.4"
-        languageVersion = "1.4"
-         freeCompilerArgs += "-Xjvm-default=enable"
+        apiVersion = "1.5"
+        languageVersion = "1.5"
+        allWarningsAsErrors = true
+        freeCompilerArgs += listOf(
+            "-Xjvm-default=all",
+            "-Xopt-in=kotlin.RequiresOptIn",
+        )
     }
 }

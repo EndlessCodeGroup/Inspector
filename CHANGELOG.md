@@ -1,5 +1,17 @@
 ## [Unreleased]
 
+## [0.12.0] (2021-08-23)
+
+### Added
+
+- Bukkit 1.17 support
+
+### Housekeeping
+
+- Sentry 4.2.0 -> 5.1.0
+- Kotlin 1.4.30 -> 1.5.21
+- Gradle 6.8.3 -> 7.2
+
 ## [0.11.0] (2021-02-23)
 
 ### Fallback reporter
@@ -14,7 +26,7 @@ This reporter simply prints everything to the plugin's logger, just like you not
 
 ### Housekeeping
 
-- Migrate from jCenter to Maven Central
+- Migrate from JCenter to Maven Central
 - Update Gradle to 6.8.3
 - Update Sentry to 4.2.0
 
@@ -55,7 +67,8 @@ public Reporter createReporter() {
 - Updated Coroutines and Fuel
 - Build infrastructure updated
 
-[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.11.0...develop
+[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.12.0...develop
+[0.12.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.9...v0.10.0

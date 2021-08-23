@@ -1,23 +1,22 @@
 package ru.endlesscode.inspector.sentry.bukkit
 
-import io.sentry.IHub
-import io.sentry.Integration
-import io.sentry.SentryOptions
+import io.sentry.*
 import org.bukkit.Server
 import org.bukkit.plugin.Plugin
 
 /**
- * SentryClientFactory that handles Bukkit-specific construction, like logging
+ * [Integration] that handles Bukkit-specific info, like logging
  * server and plugin information.
  */
 public class SentryBukkitIntegration(private val plugin: Plugin) : Integration {
 
     public companion object {
+
         private val KNOWN_SERVERS = listOf("Paper", "Spigot", "CraftBukkit", "BungeeCord", "WaterFall")
     }
 
     private val Server.knownName: String
-        get() = (KNOWN_SERVERS.find { it in version } ?: "Unknown").toLowerCase()
+        get() = (KNOWN_SERVERS.find { it in version } ?: "Unknown").lowercase()
     private val Server.minecraftVersion: String
         get() = bukkitVersion.substringBefore('-')
 
@@ -25,10 +24,11 @@ public class SentryBukkitIntegration(private val plugin: Plugin) : Integration {
         options.sdkVersion?.addIntegration("bukkit")
         options.serverName = plugin.server.knownName
         options.setTag("minecraft", plugin.server.minecraftVersion)
-        options.addEventProcessor { event, _ ->
-            event.contexts.putAll(getContexts())
-            event
-        }
+        options.addEventProcessor(object : EventProcessor {
+            override fun process(event: SentryEvent, hint: Any?): SentryEvent {
+                return event.also { it.contexts.putAll(getContexts()) }
+            }
+        })
     }
 
     private fun getContexts(): Map<String, Map<String, Any>> {

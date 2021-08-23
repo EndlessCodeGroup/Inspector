@@ -4,14 +4,14 @@ import ru.endlesscode.bukkitgradle.dependencies.spigotApi
 // Bukkit implementation build config
 
 plugins {
-    id("ru.endlesscode.bukkitgradle") version "0.9.2"
+    id("ru.endlesscode.bukkitgradle") version "0.10.0"
     publish
 }
 
 description = "Inspector implementation for Bukkit"
 
 bukkit {
-    apiVersion = "1.16.5"
+    apiVersion = "1.17.1"
 
     meta {
         name.set("Inspector")

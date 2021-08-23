@@ -1,0 +1,22 @@
+public final class ru/endlesscode/inspector/report/SentryReporter : ru/endlesscode/inspector/report/Reporter {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Lru/endlesscode/inspector/report/ReporterFocus;Ljava/util/Set;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun addHandler (Lru/endlesscode/inspector/report/ReportHandler;)V
+	public fun getEnabled ()Z
+	public fun getFocus ()Lru/endlesscode/inspector/report/ReporterFocus;
+	public fun report (Ljava/lang/String;Ljava/lang/Exception;Z)V
+	public fun setEnabled (Z)V
+}
+
+public final class ru/endlesscode/inspector/report/SentryReporter$Builder : ru/endlesscode/inspector/report/Reporter$Builder {
+	public fun <init> ()V
+	public final fun addIntegration (Lio/sentry/Integration;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public fun build ()Lru/endlesscode/inspector/report/Reporter;
+	public final fun setDataSourceName (Ljava/lang/String;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public final fun setDataSourceName (Ljava/lang/String;Ljava/lang/String;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public final fun setDataSourceName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public final fun setDataSourceName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public final fun setDataSourceName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public static synthetic fun setDataSourceName$default (Lru/endlesscode/inspector/report/SentryReporter$Builder;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+	public final fun setDsn (Ljava/lang/String;)Lru/endlesscode/inspector/report/SentryReporter$Builder;
+}
+

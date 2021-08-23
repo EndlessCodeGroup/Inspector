@@ -1,0 +1,27 @@
+public final class ru/endlesscode/inspector/report/DiscordReporter : ru/endlesscode/inspector/report/CachingReporter {
+	public static final field Companion Lru/endlesscode/inspector/report/DiscordReporter$Companion;
+	public synthetic fun <init> (Lru/endlesscode/inspector/report/ReporterFocus;Ljava/lang/String;Ljava/lang/String;Lru/endlesscode/inspector/service/TextStorage;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getFocus ()Lru/endlesscode/inspector/report/ReporterFocus;
+	public fun report (Ljava/lang/String;Lru/endlesscode/inspector/report/ExceptionData;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class ru/endlesscode/inspector/report/DiscordReporter$Builder : ru/endlesscode/inspector/report/Reporter$Builder {
+	public fun <init> ()V
+	public fun build ()Lru/endlesscode/inspector/report/Reporter;
+	public final fun hook (Ljava/lang/String;Ljava/lang/String;)Lru/endlesscode/inspector/report/DiscordReporter$Builder;
+	public final fun setAvatar (Ljava/lang/String;)Lru/endlesscode/inspector/report/DiscordReporter$Builder;
+	public final fun setUsername (Ljava/lang/String;)Lru/endlesscode/inspector/report/DiscordReporter$Builder;
+}
+
+public final class ru/endlesscode/inspector/report/DiscordReporter$Companion {
+}
+
+public final class ru/endlesscode/inspector/service/HastebinStorage : ru/endlesscode/inspector/service/TextStorage {
+	public static final field Companion Lru/endlesscode/inspector/service/HastebinStorage$Companion;
+	public fun <init> ()V
+	public fun storeText (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class ru/endlesscode/inspector/service/HastebinStorage$Companion {
+}
+
