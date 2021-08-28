@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### Housekeeping
+
+- Removed SLF4J from dependencies
+- Excluded Gson from Sentry transitive dependencies because it is bundled into spigot.
+
 ## [0.12.0] (2021-08-23)
 
 ### Added

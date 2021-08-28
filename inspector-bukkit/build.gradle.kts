@@ -1,4 +1,3 @@
-import ru.endlesscode.bukkitgradle.dependencies.spigot
 import ru.endlesscode.bukkitgradle.dependencies.spigotApi
 
 // Bukkit implementation build config
@@ -26,11 +25,6 @@ bukkit {
     }
 }
 
-repositories {
-    spigot()
-}
-
 dependencies {
     compileOnly(spigotApi) { isTransitive = false }
-    implementation("org.slf4j:slf4j-jdk14:1.7.30")
 }
