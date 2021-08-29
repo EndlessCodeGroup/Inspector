@@ -74,26 +74,34 @@ repositories {
 }
 
 shadowJar {
-    // Enable shadowJar minimization to reduce plugin size.
-    // Read more: https://imperceptiblethoughts.com/shadow/configuration/minimizing/
-    minimize()
+    // Exclude dependencies bundled into Spigot from resulting JAR
+    dependencies {
+        exclude(dependency("com.google.code.gson:gson:.*"))
+        exclude(dependency("org.jetbrains:annotations:.*"))
+    }
+
+    // Remove some extra files from resulting JAR
+    exclude("DebugProbesKt.bin")
+    exclude("META-INF/proguard/**") // If you don't use proguard
+    exclude("META-INF/native-image/**")
 
     // To avoid possible conflicts we should relocate embedded dependencies to own unique package
     // Here we use manual relocating, but easiest (and slower) variant is use automatically relocating.
     // Read more: https://imperceptiblethoughts.com/shadow/configuration/relocation/#automatically-relocating-dependencies
     def shadowPackage = "shadow.[PLACE_HERE_YOUR_PLUGIN_PACKAGE]"
     relocate "ru.endlesscode.inspector", "${shadowPackage}.inspector"
-    relocate "org.jetbrains", "${shadowPackage}.jetbrains"
     relocate "kotlinx", "${shadowPackage}.kotlinx"
     relocate "kotlin", "${shadowPackage}.kotlin"
 
     // If you use inspector-sentry-reporter:
     relocate "io.sentry", "${shadowPackage}.sentry"
-    relocate "org.slf4j", "${shadowPackage}.slf4j"
-    relocate "com.fasterxml.jackson.core", "${shadowPackage}.jackson"
 
     // If you use inspector-discord-reporter:
     relocate "com.github.kittinunf", "${shadowPackage}.kittinunf"
+
+    // Enable shadowJar minimization to reduce plugin size.
+    // Read more: https://imperceptiblethoughts.com/shadow/configuration/minimizing/
+    minimize()
 }
 
 // Automatically run shadowJar making on assemble

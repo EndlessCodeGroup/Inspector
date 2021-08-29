@@ -15,7 +15,7 @@ bukkit {
 
     meta {
         name.set("MyPlugin")
-        url.set("http://www.example.com")
+        url.set("https://www.example.com")
         authors.set(["osipxd"])
     }
 
@@ -27,6 +27,12 @@ bukkit {
 
 shadowJar {
     minimize()
+
+    // Exclude dependencies bundled into Spigot from resulting JAR
+    dependencies {
+        exclude(dependency("com.google.code.gson:gson:.*"))
+        exclude(dependency("org.jetbrains:annotations:.*"))
+    }
 }
 
 // Here we use automatic relocation

@@ -13,7 +13,7 @@ bukkit {
 
     meta {
         name.set("MyPlugin")
-        url.set("http://www.example.com")
+        url.set("https://www.example.com")
         authors.set(["osipxd"])
     }
 
@@ -24,16 +24,31 @@ bukkit {
 }
 
 shadowJar {
-    minimize()
+    // Exclude dependencies bundled into Spigot from resulting JAR
+    dependencies {
+        exclude(dependency("com.google.code.gson:gson:.*"))
+        exclude(dependency("org.jetbrains:annotations:.*"))
+    }
 
+    // Remove some extra files from resulting JAR
+    exclude("DebugProbesKt.bin")
+    exclude("META-INF/proguard/**") // If you don't use proguard
+    exclude("META-INF/native-image/**")
+
+    // To avoid possible conflicts we should relocate embedded dependencies to own unique package
+    // Here we use manual relocating, but easiest (and slower) variant is use automatically relocating.
+    // Read more: https://imperceptiblethoughts.com/shadow/configuration/relocation/#automatically-relocating-dependencies
     def shadowPackage = "shadow.com.example.myplugin"
     relocate "ru.endlesscode.inspector", "${shadowPackage}.inspector"
-    relocate "org.jetbrains", "${shadowPackage}.jetbrains"
     relocate "kotlinx", "${shadowPackage}.kotlinx"
     relocate "kotlin", "${shadowPackage}.kotlin"
+
+    // For inspector-sentry-reporter:
     relocate "io.sentry", "${shadowPackage}.sentry"
-    relocate "org.slf4j", "${shadowPackage}.slf4j"
-    relocate "com.fasterxml.jackson.core", "${shadowPackage}.jackson"
+
+    // Enable shadowJar minimization to reduce plugin size.
+    // Read more: https://imperceptiblethoughts.com/shadow/configuration/minimizing/
+    minimize()
 }
 tasks.assemble.dependsOn tasks.shadowJar
 
