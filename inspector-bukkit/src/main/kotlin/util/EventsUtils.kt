@@ -16,7 +16,7 @@ internal object EventsUtils {
         try {
             val method = getRegistrationClass(type).getHandlerListMethod()
             method.isAccessible = true
-            return method.invoke(null, *arrayOfNulls(0)) as HandlerList
+            return method.invoke(null) as HandlerList
         } catch (e: Exception) {
             throw IllegalPluginAccessException(e.toString())
         }
@@ -32,8 +32,8 @@ internal object EventsUtils {
             }
         }
 
-        throw IllegalPluginAccessException("Unable to find handler list for event ${type.name}")
+        throw IllegalPluginAccessException("Unable to find handler list for event ${type.name}. Static getHandlerList method required!")
     }
 
-    private fun Class<out Event>.getHandlerListMethod() = getDeclaredMethod("getHandlerList", *arrayOfNulls(0))
+    private fun Class<out Event>.getHandlerListMethod() = getDeclaredMethod("getHandlerList")
 }
