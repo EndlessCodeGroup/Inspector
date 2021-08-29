@@ -5,7 +5,7 @@ Reporter that sends reports to [Sentry](https://sentry.io/).
 ### Gradle
 
 ```groovy
-ext.inspectorVersion = "0.12.0"
+ext.inspectorVersion = "0.12.1"
 dependencies {
     implementation "ru.endlesscode.inspector:inspector-sentry-reporter:$inspectorVersion"
     implementation "ru.endlesscode.inspector:sentry-bukkit:$inspectorVersion" // If you want SentryBukkitIntegration

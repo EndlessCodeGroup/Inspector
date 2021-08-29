@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.12.1] (2021-08-29)
+
 ### Housekeeping
 
 - Removed SLF4J from dependencies
@@ -72,7 +74,8 @@ public Reporter createReporter() {
 - Updated Coroutines and Fuel
 - Build infrastructure updated
 
-[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.12.0...develop
+[unreleased]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.12.1...develop
+[0.12.1]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/EndlessCodeGroup/Inspector/compare/v0.10.0...v0.10.1

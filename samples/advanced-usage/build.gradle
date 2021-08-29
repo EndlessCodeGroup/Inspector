@@ -43,7 +43,7 @@ task relocateShadowJar(type: ConfigureShadowRelocation) {
 tasks.shadowJar.dependsOn tasks.relocateShadowJar
 tasks.assemble.dependsOn tasks.shadowJar
 
-ext.inspectorVerson = "0.12.0"
+ext.inspectorVerson = "0.12.1"
 
 dependencies {
     compileOnly(spigotApi()) {
